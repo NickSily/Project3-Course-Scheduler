@@ -5,7 +5,7 @@ Machine Code files
 Source files ( .cpp and .h or .hpp)
 
 ## test-unit
-Cache Test Module for testing. Test early and often kids!
+Cache Test Module for testing. 
 
 ## Makefile
 To run Program Type "make" in Linux terminal
