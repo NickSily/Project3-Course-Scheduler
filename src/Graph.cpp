@@ -18,15 +18,15 @@ std::vector<std::vector<Course>> Graph::topSort()
 {
     // Make a copy of Graph so as not to lose original data
     std::unordered_map<std::string, Course> tempAdjList = this->adjList;
-
-    for(auto it = tempAdjList.begin(); it != tempAdjList.end(); it++){
-        std::cout << "Key:" <<  it->first << " Val: " <<  it->second.name  << std::endl;
-    }
     
     std::vector<std::vector<Course>> result;
     std::vector<Course> row;
 
+    int maxLoops = tempAdjList.size();
+    int numLoops = 0;
     while(!tempAdjList.empty()){
+        if(numLoops > maxLoops){throw std::runtime_error("Cycle Detected in Graph");}
+        
         // Push All preReqs = 0 into the row
         std::cout << "List not empty" << std::endl;
         for(auto v = tempAdjList.begin(); v != tempAdjList.end(); v++){
@@ -68,7 +68,9 @@ std::vector<std::vector<Course>> Graph::topSort()
         result.push_back(row);
         std::cout << "clearing row" << std::endl;
         row.clear();
+        numLoops++;
     }
+    
     return result;
 }
 
