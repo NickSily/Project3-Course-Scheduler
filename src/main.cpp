@@ -14,7 +14,7 @@ int main(int argc, char const *argv[])
     
     //Input
     // Maximum amount of credits you want to take suring fall/spring semesters
-    //maximum number of credits you want to take during summer, and many summer semesters do you want to take?
+    // Maximum number of credits you want to take during summer, and many summer semesters do you want to take?
     
     return 0;
 }
