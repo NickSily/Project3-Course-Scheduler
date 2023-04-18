@@ -11,5 +11,10 @@ int main(int argc, char const *argv[])
     // create nodes and append them to graph
     // Loop though all data in the file, if requireForMahjors.contains(bio)
     // topological sort on the courses selected and add them to a list of semesters
+    
+    //Input
+    // Maximum amount of credits you want to take suring fall/spring semesters
+    //maximum number of credits you want to take during summer, and many summer semesters do you want to take?
+    
     return 0;
 }
