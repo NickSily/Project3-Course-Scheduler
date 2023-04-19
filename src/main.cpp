@@ -5,6 +5,8 @@
 #include<sstream>
 #include "Graph.h"
 
+using namespace std;
+
 void examineChar(char c){
 	if(c=='\n')
 		std::cout<<"\\n";
