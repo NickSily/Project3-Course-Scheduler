@@ -14,6 +14,16 @@ void Graph::insertCourse(std::string id, std::string name, std::string credits, 
     adjList[id] = Course(id, name, credits, preReqs);
 }
 
+void Graph::removeCourse(std::string id)
+{
+    /*FIX ME*/
+    // Removes the course with corresponding id from the graph
+    /* 
+    But remember, we must also loop thorugh the graph and 
+    remove any ocurrence of the guy beeing removed, from anyone's pre-reqs
+    */ 
+}
+
 std::vector<std::vector<Course>> Graph::topSort()
 {
     // Make a copy of Graph so as not to lose original data

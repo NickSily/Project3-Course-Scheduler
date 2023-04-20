@@ -88,13 +88,127 @@ void readCSV(string filename, Graph& graph){
     inFile.close();
 }
 
-void courseSelection(Graph courseGraph, std::vector<Course> availableCourses){
+void printSemesterPlan(std::vector<std::vector<Course>>& finalSemesterPlan){
+    /*  FIX ME*/
+    // This function just prints the contents of our semester planner
+    // Let's try to make it look pretty as it's the final output of our program
+    // Print all the courses in each semester
+    /*
+    example:
+        Semester 1:
+            * Geomtry
+            * Calculus 1
+        Semester 2:
+            * Prog 1
+            * Calculus 2
+        (or some shit like that)
+    */
+}
+
+void runProgram(Graph CourseGraphcopy){
+    //Makes copy of original graph so that no info is lost (That is why we didn't pass by reference)
+
+    // Keep a vector of vector of courses, keeping track of all selected in each semester
+    std::vector<std::vector<Course>> finalCourseSchedule;
+
+    
+    //We'll keep looping until, Total number of credits for degree is achived
+    /*
+    Btw:
+    We can do number of semesters too, but I think that will defeat the purpose of us decreasing the number of
+    semesters in the end. Feel free to implement that
+    */
+    // ask user to input Total number of credits
+    int maxCredits;
+    std::cout << "Please enter Total number of credits in your program: " << std::endl;
+    cin >> maxCredits;
+
+    int credits = 0; // Keeps track of the current number of credits
+
+    while(credits < maxCredits){
+        //Get available courses and put them into the vector
+        std::vector<Course> availableCourses(getAvaliableCourses(CourseGraphcopy));
+
+        // print the Available Courses to the user, and let him pick the courses he wants
+        // The courses he wants will be removed from the first vector and added to a second one
+        std::vector<Course> selectedCourses(selectFromAvailableCourses(availableCourses));
+
+
+        // Now that we have the classes he has chosen, let's remove those courses (vertices) fromt the graph
+        // Let's also update the amount of credits we have so far
+        for (auto course : selectedCourses){
+            credits += course.credits;
+            CourseGraphcopy.removeCourse(course.id);
+        }
+
+        // let's just add the current semester's courses to our result so we have it for later
+        finalCourseSchedule.push_back(selectedCourses);
+
+        // Great, now our graph is updated and we can move on to the next semester's available courses. so let's loop
+    }
+
+    // Great now our student has built his model semester plan, so let's show the final result
+    // We've been storing all the semester into on big vector of vectors, so let's just print that 
+    printSemesterPlan(finalCourseSchedule);
+
+
+    // Now after we show the student the semester plan he has built:
+    // We are actually going to further optimize the selected courses, and offer him a revised semster
+    // plan, that just tries to minimize the number of semesters in total
+    // we do that by simply running the TopSort() on the Courses contained in the FinalCourseSchedule vector
+    // So for that we will need to:
+    // first: Loop throguh vector and create a graph with only those courses
+    // run top sort on that graph, and grab the resulting vector
+    // just print the resulting vector and see if the student likes it.
+
+
 
 }
 
+std::vector<Course> getAvaliableCourses(Graph& courseGraph){
+    /*
+    FIX ME
+    Get the available courses for the current semester, here's how:
+    loop through the Graph:
+        if course indegree is 0 (no preReqs):
+           Add it to the vector
+    return the vector
+    */
+    std::vector<Course> result;
+    return result;
+}
+
+std::vector<Course> selectFromAvailableCourses(std::vector<Course>& availableCourses){
+    /*Fix me */ // This may be the biggest and most important method so patience here.
+
+    // print out all available courses (name + id + credits)
+
+    /*
+    Keep getting input from the user until, either:
+        num Credits in the semester is hit
+        no more available courses
+
+        GEt the input from the user and add the corresponding course to the vector
+            update the total credit count for the semester
+
+    Return the vector with the selected courses for the semester
+    */
+
+
+    std::vector<Course> selectedCourses;
+
+    return selectedCourses;
+    /* 
+    Now that we have the courses the user will take on the semester, we can remove them from the graph
+    That way we can calculate the available courses next semester
+    */
+}
+
+
+
 int main()
 {
-    Graph Graph;
+    Graph myGraph;
     int numSemesters,numCredits, currentSemester = 1, creditCount = 0;
     string course;
     cout << "How many semesters do you wish to take: " << endl;
@@ -102,19 +216,22 @@ int main()
     cout << "How many credits each semester do you wish to take: " << endl;
     cin >>  numCredits;
     cout << endl;
-    readCSV("TestCourses.csv", Graph);
 
+    // Read the Data and create a graph with it
+    readCSV("TestCourses.csv", myGraph);
 
+    // runs the program 
+    runProgram(myGraph);
+
+    // Commented out your cold Bryan, feel free to recycle this to put it inside the individual functions
+    /*
     // Load Values from file into test Graph
     while(currentSemester <= numSemesters &&  creditCount < numCredits){
         cout <<  "Please select any courses you'd like to include in semester " <<  currentSemester <<  endl;
         cout <<  "____________________________________________________________" <<  endl;
 
-        //print possible courses
-        // Graph.topSort();
-        std::vector<Course> availableCourses;
-        courseSelection(Graph, availableCourses); 
-        // This will be the function that prints available courses and get's input from user
+
+
         
 
         cout <<  "____________________________________________________________" <<  endl;
@@ -122,22 +239,14 @@ int main()
         while(creditCount < numCredits){
             cin >> course;
             cout << endl;
-            creditCount += Graph.getCredit(course);
+            creditCount += myGraph.getCredit(course);
 
         }
 
         currentSemester++;
 
     }
-
-
-
-
-    // Print the graph
-    // testGraph.print();
-    std::vector<std::vector<Course>>result(Graph.topSort());
-
-
+    */
 
     return 0;
 }

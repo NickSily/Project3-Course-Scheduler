@@ -49,6 +49,7 @@ public:
     Graph();
     Graph(std::unordered_map<std::string, Course>&);
     void insertCourse(std::string id, std::string name, std::string credits, std::vector<std::string>& preReq);
+    void removeCourse(std::string id);
     std::vector<std::vector<Course>> topSort();
     int getCredit(string course);
 };
