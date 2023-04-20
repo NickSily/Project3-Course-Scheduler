@@ -5,9 +5,12 @@
 #include <unordered_map>
 #include <unordered_set>
 
+using namespace std;
+
 struct Course{
     std::string id; // COP_3530 
     std::string name; // Data Structure and Alg..
+    bool class_taken;
     int credits;
     std::unordered_set<std::string> preReqs; // {cop_3503, cop_3502 ...}
     Course(){};
@@ -21,8 +24,10 @@ inline Course::Course(std::string id, std::string name, std::string credits, std
     this->id = id;
     this->name = name;
     this->credits = std::stoi(credits);
-    for (auto i : preReqs){this->preReqs.emplace(i);}
-    
+    for (auto i : preReqs){
+        this->preReqs.emplace(i);
+    }
+    class_taken = false;
 }
 
 inline void Course::addPreReq(std::string preReq){
@@ -30,14 +35,9 @@ inline void Course::addPreReq(std::string preReq){
 }
 
 inline void Course::print(){
-    std::cout << "Course ID: " << id << std::endl;
-    std::cout << "Name: " << name << std::endl;
-    std::cout << "Credits: " << credits << std::endl;
-    std::cout << "Pre-Requisites: ( ";
-    for (auto i: preReqs){
-        std::cout << i << " ";
-    }
-    std::cout << ")" << std::endl;
+    std::cout << "Course ID: " << id;
+    std::cout << "| Name: " << name;
+    std::cout << "| Credits: " << credits << std::endl;
 
 }
 
@@ -50,5 +50,6 @@ public:
     Graph(std::unordered_map<std::string, Course>&);
     void insertCourse(std::string id, std::string name, std::string credits, std::vector<std::string>& preReq);
     std::vector<std::vector<Course>> topSort();
-    void print();
+    void print_possible();
+    int get_credit(string course);
 };

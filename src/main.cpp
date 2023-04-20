@@ -26,46 +26,39 @@ void examineChar(char c){
 		std::cout<<c;
 }
 
-void examineString(std::string s){
-	int i;
+void examineString(string s){
 	if(s!="")
-	    for(i=0;i<s.length();i++)
+	    for(int i=0;i<s.length();i++)
 			examineChar(s[i]);
 }
 
-void readCSV(std::string filename, Graph& graph){
+void readCSV(string filename, Graph& graph){
     // Open csv file
     std::ifstream inFile("inputFiles/" + filename);
-    if(!inFile.is_open()){std::cout << "Error Opening file." << std::endl;}
+    if(!inFile.is_open()){
+        std::cout << "Error Opening file." << std::endl;
+    }
 
-    std::string line, id, name, credits, preReqList;
 
-    std::vector<std::string> preReqs;
+    string line, id, name, credits, preReqList;
+
+    vector<std::string> preReqs;
+    string nopreeq;
 
     // Get the header
-    std::getline(inFile, line);
+    getline(inFile, line);
 
     // Get the values
-    while (std::getline(inFile, id, ',')){
-        std::cout << "Id: ";
-        examineString(id);
-        std::cout << std::endl;
-
-        std::getline(inFile,name,',');
-        std::cout << "name: ";
-        examineString(name);
-        std::cout << std::endl;
-
+    while (std::getline(inFile, id, ',')) {
+        std::getline(inFile, name, ',');
         std::getline(inFile,credits,',');
-        std::cout << "Credits: ";
-        examineString(credits);
-        std::cout << std::endl;
-
-        // Read all preReqs
         std::getline(inFile,preReqList);
 
+        if(preReqList.empty()){
+            preReqList = "None";
+        }
         // Remove the "" characters if needed
-        if(preReqList.at(0) == '\"'){
+         else if(preReqList.at(0) == '\"'){
             preReqList = preReqList.substr(1, preReqList.size() - 3);
             // Convert to Stream
             std::stringstream preReqs_sstream(preReqList);
@@ -87,49 +80,57 @@ void readCSV(std::string filename, Graph& graph){
             preReqs.push_back(preReqList);
         }
 
-        std::cout << "PreRequisites: ";
-        for (auto &&i : preReqs)
-        {
-            std::cout << i << " ";
-        }
-        std::cout << std::endl;
-
         graph.insertCourse(id, name, credits, preReqs);
+
         preReqs.clear();
     }
 
     inFile.close();
 }
 
-void printResult(std::vector<std::vector<Course>>& result){
-    int count = 1;
-    for (auto &&row : result){
 
-        std::cout << "Semester " << count << ":" << std::endl;
-        for (auto &&course : row){
-            std::cout << "--> " << course.name << "(" << course.id << ")" << std::endl; 
-        }
-        count++;
-    }
-    
-
-}
-
-int main(int argc, char const *argv[])
+int main()
 {
-    Graph testGraph;
+    Graph Graph;
+    int num_semesters,num_credits, current_semester = 1, credit_count = 0;
+    string course;
+    cout<<"How many semesters do you want to take: ";
+    cin>>num_semesters;
+    cout<<"How many credits each semester do you want to take: ";
+    cin>>num_credits;
+    cout<<endl;
+    readCSV("TestCourses.csv", Graph);
+
 
     // Load Values from file into test Graph
-    readCSV("TestCourses.csv", testGraph);
+    while(current_semester <= num_semesters){
+        cout<< "Please select any courses you'd like to include in semester "<< current_semester<< endl;
+        cout<< "____________________________________________________________"<< endl;
+
+        //print possible courses
+        Graph.topSort();
+        Graph.print_possible();
+
+        cout<< "____________________________________________________________"<< endl;
+
+        while(credit_count < num_credits){
+            cin>>course;
+            cout<<endl;
+            credit_count += Graph.get_credit(course);
+
+        }
+
+        current_semester++;
+
+    }
+
+
+
 
     // Print the graph
     // testGraph.print();
 
-    std::vector<std::vector<Course>> result(testGraph.topSort());
-
-    printResult(result);
-    
-
+    std::vector<std::vector<Course>> result(Graph.topSort());
 
 
 
