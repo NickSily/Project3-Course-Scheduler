@@ -26,5 +26,12 @@ The topological sort method will go through the DAG and place all items into a 2
 The main.cpp file contains a method for reading data from a CSV. The CSV will contain all course information obtained from UF's website.
 
 During main's execution, the CSV file's courses are loaded into the map, then topological sort if performed to output a list of classes per semester that takes into account all pre-requisited.
+## Methods
+examineChar, examineString are just to help make sure the ReadCSV is working properly
+
+ReadCSV, read the data from csv file containing Courses and puts those courses into the Graph.
+
+
+
 
 

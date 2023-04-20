@@ -9,21 +9,21 @@ using namespace std;
 
 void examineChar(char c){
 	if(c=='\n')
-		std::cout<<"\\n";
+		std::cout << "\\n";
 	else if(c=='\r')
-		std::cout<<"\\r";
+		std::cout << "\\r";
 	else if(c=='\b')
-		std::cout<<"\\b";
+		std::cout << "\\b";
 	else if(c=='\t')
-		std::cout<<"\\t";
+		std::cout << "\\t";
 	else if(c=='\a')
-		std::cout<<"\\a";
+		std::cout << "\\a";
 	else if(c=='\v')
-		std::cout<<"\\v";
+		std::cout << "\\v";
 	else if(c=='\0')
-		std::cout<<"\\0";
+		std::cout << "\\0";
 	else
-		std::cout<<c;
+		std::cout << c;
 }
 
 void examineString(string s){
@@ -88,39 +88,45 @@ void readCSV(string filename, Graph& graph){
     inFile.close();
 }
 
+void courseSelection(Graph courseGraph, std::vector<Course> availableCourses){
+
+}
 
 int main()
 {
     Graph Graph;
-    int num_semesters,num_credits, current_semester = 1, credit_count = 0;
+    int numSemesters,numCredits, currentSemester = 1, creditCount = 0;
     string course;
-    cout<<"How many semesters do you want to take: ";
-    cin>>num_semesters;
-    cout<<"How many credits each semester do you want to take: ";
-    cin>>num_credits;
-    cout<<endl;
+    cout << "How many semesters do you wish to take: " << endl;
+    cin >> numSemesters;
+    cout << "How many credits each semester do you wish to take: " << endl;
+    cin >>  numCredits;
+    cout << endl;
     readCSV("TestCourses.csv", Graph);
 
 
     // Load Values from file into test Graph
-    while(current_semester <= num_semesters){
-        cout<< "Please select any courses you'd like to include in semester "<< current_semester<< endl;
-        cout<< "____________________________________________________________"<< endl;
+    while(currentSemester <= numSemesters &&  creditCount < numCredits){
+        cout <<  "Please select any courses you'd like to include in semester " <<  currentSemester <<  endl;
+        cout <<  "____________________________________________________________" <<  endl;
 
         //print possible courses
-        Graph.topSort();
-        Graph.print_possible();
+        // Graph.topSort();
+        std::vector<Course> availableCourses;
+        courseSelection(Graph, availableCourses); 
+        // This will be the function that prints available courses and get's input from user
+        
 
-        cout<< "____________________________________________________________"<< endl;
+        cout <<  "____________________________________________________________" <<  endl;
 
-        while(credit_count < num_credits){
-            cin>>course;
-            cout<<endl;
-            credit_count += Graph.get_credit(course);
+        while(creditCount < numCredits){
+            cin >> course;
+            cout << endl;
+            creditCount += Graph.getCredit(course);
 
         }
 
-        current_semester++;
+        currentSemester++;
 
     }
 
@@ -129,8 +135,7 @@ int main()
 
     // Print the graph
     // testGraph.print();
-
-    std::vector<std::vector<Course>> result(Graph.topSort());
+    std::vector<std::vector<Course>>result(Graph.topSort());
 
 
 

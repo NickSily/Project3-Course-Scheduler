@@ -74,11 +74,9 @@ std::vector<std::vector<Course>> Graph::topSort()
     return result;
 }
 
-void Graph::print_possible(){
 
-}
-
-int Graph::get_credit(string course) {
+int Graph::getCredit(string course) {
+    // Finds the Course in the map and returns it's number of credits
     for(auto v = adjList.begin(); v != adjList.end(); v++){
         if(v->second.id == course){
             return v->second.credits;
