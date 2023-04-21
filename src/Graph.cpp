@@ -18,17 +18,17 @@ void Graph::removeCourse(std::string id)
 {
     /*FIX ME*/
     // Removes the course with corresponding id from the graph
-    /* 
-    But remember, we must also loop thorugh the graph and 
+    /*
+    But remember, we must also loop thorugh the graph and
     remove any ocurrence of the guy beeing removed, from anyone's pre-reqs
-    */ 
+    */
 }
 
 std::vector<std::vector<Course>> Graph::topSort()
 {
     // Make a copy of Graph so as not to lose original data
     std::unordered_map<std::string, Course> tempAdjList = this->adjList;
-    
+
     std::vector<std::vector<Course>> result;
     std::vector<Course> row;
 
@@ -36,7 +36,7 @@ std::vector<std::vector<Course>> Graph::topSort()
     int numLoops = 0;
     while(!tempAdjList.empty()){
         if(numLoops > maxLoops){throw std::runtime_error("Cycle Detected in Graph");}
-        
+
         // Push All preReqs = 0 into the row
 //        std::cout << "List not empty" << std::endl;
         for(auto v = tempAdjList.begin(); v != tempAdjList.end(); v++){
@@ -59,7 +59,7 @@ std::vector<std::vector<Course>> Graph::topSort()
 
             // Check every vertex(v) to see if they have current row element(i) in their preReqs
             for(auto v = tempAdjList.begin(); v != tempAdjList.end(); v++){
-                
+
                 if (v->second.preReqs.find(i.id) != v->second.preReqs.end()){
                     // Found element in inlinks, so remove it
 //                    std::cout << "Found " << v->second.name << "With " << i.id << "in indegree" << std::endl;
@@ -72,7 +72,7 @@ std::vector<std::vector<Course>> Graph::topSort()
             // Remove i from the Graph
             tempAdjList.erase(i.id);
         }
-        
+
 //        std::cout << "Pushing row to vector " << std::endl;
         //Add row to vector
         result.push_back(row);
@@ -80,7 +80,7 @@ std::vector<std::vector<Course>> Graph::topSort()
         row.clear();
         numLoops++;
     }
-    
+
     return result;
 }
 
