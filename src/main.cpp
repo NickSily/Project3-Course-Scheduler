@@ -8,28 +8,28 @@
 using namespace std;
 
 void examineChar(char c){
-    if(c=='\n')
-        std::cout << "\\n";
-    else if(c=='\r')
-        std::cout << "\\r";
-    else if(c=='\b')
-        std::cout << "\\b";
-    else if(c=='\t')
-        std::cout << "\\t";
-    else if(c=='\a')
-        std::cout << "\\a";
-    else if(c=='\v')
-        std::cout << "\\v";
-    else if(c=='\0')
-        std::cout << "\\0";
-    else
-        std::cout << c;
+	if(c=='\n')
+		std::cout << "\\n";
+	else if(c=='\r')
+		std::cout << "\\r";
+	else if(c=='\b')
+		std::cout << "\\b";
+	else if(c=='\t')
+		std::cout << "\\t";
+	else if(c=='\a')
+		std::cout << "\\a";
+	else if(c=='\v')
+		std::cout << "\\v";
+	else if(c=='\0')
+		std::cout << "\\0";
+	else
+		std::cout << c;
 }
 
 void examineString(string s){
-    if(s!="")
-        for(int i=0;i<s.length();i++)
-            examineChar(s[i]);
+	if(s!="")
+	    for(int i=0;i<s.length();i++)
+			examineChar(s[i]);
 }
 
 void readCSV(string filename, Graph& graph){
@@ -57,8 +57,8 @@ void readCSV(string filename, Graph& graph){
         if(preReqList.empty()){
             preReqList = "None";
         }
-            // Remove the "" characters if needed
-        else if(preReqList.at(0) == '\"'){
+        // Remove the "" characters if needed
+         else if(preReqList.at(0) == '\"'){
             preReqList = preReqList.substr(1, preReqList.size() - 3);
             // Convert to Stream
             std::stringstream preReqs_sstream(preReqList);
@@ -104,14 +104,14 @@ void printSemesterPlan(std::vector<std::vector<Course>>& finalSemesterPlan){
         (or some shit like that)
     */
 }
-// Brian's taking care of runProgram() and all functions within it
+
 void runProgram(Graph CourseGraphcopy){
     //Makes copy of original graph so that no info is lost (That is why we didn't pass by reference)
 
     // Keep a vector of vector of courses, keeping track of all selected in each semester
     std::vector<std::vector<Course>> finalCourseSchedule;
 
-
+    
     //We'll keep looping until, Total number of credits for degree is achived
     /*
     Btw:
@@ -119,19 +119,13 @@ void runProgram(Graph CourseGraphcopy){
     semesters in the end. Feel free to implement that
     */
     // ask user to input Total number of credits
-    int numSemesters,numCredits, totalCredits, currentSemester = 1, creditCount = 0;
-    string course;
-    cout << "How many semesters do you wish to take: " << endl;
-    cin >> numSemesters;
-    cout << "How many credits each semester do you wish to take: " << endl;
-    cin >>  numCredits;
-    cout << endl;
-
-    totalCredits = numSemesters*numCredits;
+    int maxCredits;
+    std::cout << "Please enter Total number of credits in your program: " << std::endl;
+    cin >> maxCredits;
 
     int credits = 0; // Keeps track of the current number of credits
 
-    while(currentSemester <= numSemesters){
+    while(credits < maxCredits){
         //Get available courses and put them into the vector
         std::vector<Course> availableCourses(getAvaliableCourses(CourseGraphcopy));
 
@@ -154,7 +148,7 @@ void runProgram(Graph CourseGraphcopy){
     }
 
     // Great now our student has built his model semester plan, so let's show the final result
-    // We've been storing all the semester into on big vector of vectors, so let's just print that
+    // We've been storing all the semester into on big vector of vectors, so let's just print that 
     printSemesterPlan(finalCourseSchedule);
 
 
@@ -204,7 +198,7 @@ std::vector<Course> selectFromAvailableCourses(std::vector<Course>& availableCou
     std::vector<Course> selectedCourses;
 
     return selectedCourses;
-    /*
+    /* 
     Now that we have the courses the user will take on the semester, we can remove them from the graph
     That way we can calculate the available courses next semester
     */
@@ -215,12 +209,44 @@ std::vector<Course> selectFromAvailableCourses(std::vector<Course>& availableCou
 int main()
 {
     Graph myGraph;
+    int numSemesters,numCredits, currentSemester = 1, creditCount = 0;
+    string course;
+    cout << "How many semesters do you wish to take: " << endl;
+    cin >> numSemesters;
+    cout << "How many credits each semester do you wish to take: " << endl;
+    cin >>  numCredits;
+    cout << endl;
 
     // Read the Data and create a graph with it
     readCSV("TestCourses.csv", myGraph);
 
-    // runs the program
+    // runs the program 
     runProgram(myGraph);
+
+    // Commented out your cold Bryan, feel free to recycle this to put it inside the individual functions
+    /*
+    // Load Values from file into test Graph
+    while(currentSemester <= numSemesters &&  creditCount < numCredits){
+        cout <<  "Please select any courses you'd like to include in semester " <<  currentSemester <<  endl;
+        cout <<  "____________________________________________________________" <<  endl;
+
+
+
+        
+
+        cout <<  "____________________________________________________________" <<  endl;
+
+        while(creditCount < numCredits){
+            cin >> course;
+            cout << endl;
+            creditCount += myGraph.getCredit(course);
+
+        }
+
+        currentSemester++;
+
+    }
+    */
 
     return 0;
 }
