@@ -226,7 +226,7 @@ int main()
     // Commented out your cold Bryan, feel free to recycle this to put it inside the individual functions
     /*
     // Load Values from file into test Graph
-    while(currentSemester <= numSemesters &&  creditCount < numCredits){
+    while(currentSemester <= numSemesters){
         cout <<  "Please select any courses you'd like to include in semester " <<  currentSemester <<  endl;
         cout <<  "____________________________________________________________" <<  endl;
 
