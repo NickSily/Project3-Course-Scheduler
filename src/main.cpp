@@ -111,13 +111,6 @@ void runProgram(Graph CourseGraphcopy){
     // Keep a vector of vector of courses, keeping track of all selected in each semester
     std::vector<std::vector<Course>> finalCourseSchedule;
 
-    
-    //We'll keep looping until, Total number of credits for degree is achived
-    /*
-    Btw:
-    We can do number of semesters too, but I think that will defeat the purpose of us decreasing the number of
-    semesters in the end. Feel free to implement that
-    */
     // ask user to input Total number of credits
     int numSemesters,numCredits, totalCredits ,currentSemester = 1;
     string course;
