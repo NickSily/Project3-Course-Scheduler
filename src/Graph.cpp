@@ -84,8 +84,24 @@ std::vector<std::vector<Course>> Graph::topSort()
     return result;
 }
 
+std::vector<Course> getAvaliableCourses(Graph& courseGraph){
+    /*
+    FIX ME
+    Get the available courses for the current semester, here's how:
+    loop through the Graph:
+        if course indegree is 0 (no preReqs):
+           Add it to the vector
+    return the vector
+    */
+   
+
+
+    std::vector<Course> result;
+    return result;
+}
 
 int Graph::getCredit(string course) {
+
     // Finds the Course in the map and returns it's number of credits
     for(auto v = adjList.begin(); v != adjList.end(); v++){
         if(v->second.id == course){
@@ -93,4 +109,8 @@ int Graph::getCredit(string course) {
         }
     }
     return 0;
+}
+
+Course Graph::getCourse(string id){
+    /*Find the Course in the graph, and return it*/
 }

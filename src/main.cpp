@@ -132,7 +132,7 @@ void runProgram(Graph& originalGraph){
 
     while(currentSemester <= numSemesters){
         //Get available courses and put them into the vector
-        std::vector<Course> availableCourses(getAvaliableCourses(graphCopy));
+        std::vector<Course> availableCourses(graphCopy.getAvailableCourses()));
 
         // print the Available Courses to the user, and let him pick the courses he wants
         // The courses he wants will be removed from the first vector and added to a second one
@@ -168,20 +168,6 @@ void runProgram(Graph& originalGraph){
 
 
 
-}
-
-
-std::vector<Course> getAvaliableCourses(Graph& courseGraph){
-    /*
-    FIX ME
-    Get the available courses for the current semester, here's how:
-    loop through the Graph:
-        if course indegree is 0 (no preReqs):
-           Add it to the vector
-    return the vector
-    */
-    std::vector<Course> result;
-    return result;
 }
 
 std::vector<Course> selectFromAvailableCourses(std::vector<Course>& availableCourses){
