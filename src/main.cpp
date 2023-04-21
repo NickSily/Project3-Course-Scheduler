@@ -119,27 +119,24 @@ void runProgram(Graph CourseGraphcopy){
     semesters in the end. Feel free to implement that
     */
     // ask user to input Total number of credits
-    int maxCredits;
-    std::cout << "Please enter Total number of credits in your program: " << std::endl;
-    cin >> maxCredits;
+    int numSemesters,numCredits, totalCredits ,currentSemester = 1;
+    string course;
+    cout << "How many semesters do you wish to take: " << endl;
+    cin >> numSemesters;
+    cout << "How many credits each semester do you wish to take: " << endl;
+    cin >>  numCredits;
+    cout << endl;
 
-    int credits = 0; // Keeps track of the current number of credits
+    totalCredits = numCredits* numSemesters;
 
-    while(credits < maxCredits){
+    while(currentSemester <= numSemesters){
         //Get available courses and put them into the vector
         std::vector<Course> availableCourses(getAvaliableCourses(CourseGraphcopy));
 
         // print the Available Courses to the user, and let him pick the courses he wants
         // The courses he wants will be removed from the first vector and added to a second one
-        std::vector<Course> selectedCourses(selectFromAvailableCourses(availableCourses));
+        std::vector<Course> selectedCourses(selectFromAvailableCourses(availableCourses, numCredits));
 
-
-        // Now that we have the classes he has chosen, let's remove those courses (vertices) fromt the graph
-        // Let's also update the amount of credits we have so far
-        for (auto course : selectedCourses){
-            credits += course.credits;
-            CourseGraphcopy.removeCourse(course.id);
-        }
 
         // let's just add the current semester's courses to our result so we have it for later
         finalCourseSchedule.push_back(selectedCourses);
@@ -164,6 +161,7 @@ void runProgram(Graph CourseGraphcopy){
 
 
 }
+
 
 std::vector<Course> getAvaliableCourses(Graph& courseGraph){
     /*
@@ -209,44 +207,12 @@ std::vector<Course> selectFromAvailableCourses(std::vector<Course>& availableCou
 int main()
 {
     Graph myGraph;
-    int numSemesters,numCredits, currentSemester = 1, creditCount = 0;
-    string course;
-    cout << "How many semesters do you wish to take: " << endl;
-    cin >> numSemesters;
-    cout << "How many credits each semester do you wish to take: " << endl;
-    cin >>  numCredits;
-    cout << endl;
 
     // Read the Data and create a graph with it
     readCSV("TestCourses.csv", myGraph);
 
     // runs the program 
     runProgram(myGraph);
-
-    // Commented out your cold Bryan, feel free to recycle this to put it inside the individual functions
-    /*
-    // Load Values from file into test Graph
-    while(currentSemester <= numSemesters &&  creditCount < numCredits){
-        cout <<  "Please select any courses you'd like to include in semester " <<  currentSemester <<  endl;
-        cout <<  "____________________________________________________________" <<  endl;
-
-
-
-        
-
-        cout <<  "____________________________________________________________" <<  endl;
-
-        while(creditCount < numCredits){
-            cin >> course;
-            cout << endl;
-            creditCount += myGraph.getCredit(course);
-
-        }
-
-        currentSemester++;
-
-    }
-    */
 
     return 0;
 }
