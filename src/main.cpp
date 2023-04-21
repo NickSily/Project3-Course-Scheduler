@@ -104,7 +104,7 @@ void printSemesterPlan(std::vector<std::vector<Course>>& finalSemesterPlan){
         (or some shit like that)
     */
 }
-
+// Brian's taking care of runProgram() and all functions within it
 void runProgram(Graph CourseGraphcopy){
     //Makes copy of original graph so that no info is lost (That is why we didn't pass by reference)
 
