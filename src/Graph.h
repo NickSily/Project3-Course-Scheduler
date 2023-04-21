@@ -52,4 +52,5 @@ public:
     void removeCourse(std::string id);
     std::vector<std::vector<Course>> topSort();
     int getCredit(string course);
+
 };

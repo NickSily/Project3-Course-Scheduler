@@ -105,8 +105,9 @@ void printSemesterPlan(std::vector<std::vector<Course>>& finalSemesterPlan){
     */
 }
 
-void runProgram(Graph CourseGraphcopy){
-    //Makes copy of original graph so that no info is lost (That is why we didn't pass by reference)
+void runProgram(Graph& originalGraph){
+    //Make a copy of original graph so that no info is lost 
+    Graph graphCopy(originalGraph);
 
     // Keep a vector of vector of courses, keeping track of all selected in each semester
     std::vector<std::vector<Course>> finalCourseSchedule;
@@ -127,7 +128,7 @@ void runProgram(Graph CourseGraphcopy){
 
     while(credits < maxCredits){
         //Get available courses and put them into the vector
-        std::vector<Course> availableCourses(getAvaliableCourses(CourseGraphcopy));
+        std::vector<Course> availableCourses(getAvaliableCourses(graphCopy));
 
         // print the Available Courses to the user, and let him pick the courses he wants
         // The courses he wants will be removed from the first vector and added to a second one
@@ -138,7 +139,7 @@ void runProgram(Graph CourseGraphcopy){
         // Let's also update the amount of credits we have so far
         for (auto course : selectedCourses){
             credits += course.credits;
-            CourseGraphcopy.removeCourse(course.id);
+            graphCopy.removeCourse(course.id);
         }
 
         // let's just add the current semester's courses to our result so we have it for later
