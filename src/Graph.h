@@ -10,7 +10,6 @@ using namespace std;
 struct Course{
     std::string id; // COP_3530 
     std::string name; // Data Structure and Alg..
-    bool class_taken;
     int credits;
     std::unordered_set<std::string> preReqs; // {cop_3503, cop_3502 ...}
     Course(){};
@@ -27,7 +26,6 @@ inline Course::Course(std::string id, std::string name, std::string credits, std
     for (auto i : preReqs){
         this->preReqs.emplace(i);
     }
-    class_taken = false;
 }
 
 inline void Course::addPreReq(std::string preReq){
