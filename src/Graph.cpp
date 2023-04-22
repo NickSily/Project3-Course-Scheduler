@@ -95,10 +95,13 @@ std::vector<Course> Graph::getAvaliableCourses(Graph& ogGraph){
     */
    // 0 indegre -> 
     // push_back(ogGraph.getCourse(courseId))
-   
-
 
     std::vector<Course> result;
+    for (auto iter : ogGraph.adjList) {
+        if (iter.second.preReqs.empty()) {
+            result.push_back(ogGraph.getCourse(iter.first));
+        }
+    }
     return result;
 }
 
@@ -115,4 +118,5 @@ int Graph::getCredit(string course) {
 
 Course Graph::getCourse(string id){
     /*Find the Course in the graph, and return it*/
+    return adjList[id];
 }
