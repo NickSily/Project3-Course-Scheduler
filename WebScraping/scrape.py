@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
+import pandas as pd
 
 url = "https://catalog.ufl.edu/UGRD/courses/computer_and_information_science_and_engineering/"
 
@@ -31,34 +32,39 @@ for course in courses:
     hasPreReq = False
 
     for block in extraBlocks:
-        if(block.find("strong")):
+        if(block.find("strong") and block.find("strong").text == "Prerequisite:"):
             # this is the block that has the preReqs
             # pre reqs may be , text, or hlink
             hasPreReq = True
-            preReqList = []
 
             # Get all Link Titles, push them to the list
             # for link in block.find_all("a", {"class": "bubblelink code"}):
             #     if link:
             #         preReqList.append(link.text)
-
+            preReqList = ""
             for item in block:
                 if(item.name == "a"):
                     name = item.text[0:3]
                     number = item.text[4:]
                     id = name + " " + number
-                    preReqList.append(id)
+                    # pre
+                    preReqList += id + ","
                 else:
-                    preReqList.append(item)
-            preReqList = preReqList[2:]
+                    # preReqList.append(item)
+                    preReqList += item.text + ","
 
-    
+    courseTable.append([courseTitle, courseCredits, preReqList])
 
 
-    print(f"Class: {courseTitle}")
-    print(f"Credits: {courseCredits}")
-    print(f"preReq: {preReqList}")
-    # if(hasPreReq):
-    #     print(f"PreRequisites: {preReq}\n")
-    # else:
-    #     print("NO Pre-Reqs")
+df = pd.DataFrame( courseTable, columns= ["Name", "Credits", "PreRequisites"])
+df.to_csv("OuputTest1.csv")
+
+
+
+# print(f"Class: {courseTitle}")
+# print(f"Credits: {courseCredits}")
+# print(f"preReq: {preReqList}")
+# if(hasPreReq):
+#     print(f"PreRequisites: {preReq}\n")
+# else:
+#     print("NO Pre-Reqs")
