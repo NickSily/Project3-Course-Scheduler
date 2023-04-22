@@ -174,14 +174,16 @@ void runProgram(Graph& originalGraph){
 
 
         // remove selected courses from graph
-
+        for(auto & selectedCourses : selectedCourses ){
+            graphCopy.removeCourse(selectedCourses.id);
+        }
 
         // add current selection to model semester plan
         finalCourseSchedule.push_back(selectedCourses);
 
     }
 
-    // We've been storing all the semester into on big vector of vectors, so let's just print that
+    // print semester model plan
     printSemesterPlan(finalCourseSchedule);
 
 

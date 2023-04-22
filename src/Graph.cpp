@@ -16,12 +16,7 @@ void Graph::insertCourse(std::string id, std::string name, std::string credits, 
 
 void Graph::removeCourse(std::string id)
 {
-    /*FIX ME*/
-    // Removes the course with corresponding id from the graph
-    /*
-    But remember, we must also loop thorugh the graph and
-    remove any ocurrence of the guy beeing removed, from anyone's pre-reqs
-    */
+    for()
 }
 
 std::vector<std::vector<Course>> Graph::topSort()
@@ -85,16 +80,6 @@ std::vector<std::vector<Course>> Graph::topSort()
 }
 
 std::vector<Course> Graph::getAvaliableCourses(Graph& ogGraph){
-    /*
-    FIX ME
-    Get the available courses for the current semester, here's how:
-    loop through the Graph:
-        if course indegree is 0 (no preReqs):
-           Add it to the vector
-    return the vector
-    */
-   // 0 indegre -> 
-    // push_back(ogGraph.getCourse(courseId))
 
     std::vector<Course> result;
     for (auto iter : ogGraph.adjList) {
@@ -103,17 +88,6 @@ std::vector<Course> Graph::getAvaliableCourses(Graph& ogGraph){
         }
     }
     return result;
-}
-
-int Graph::getCredit(string course) {
-
-    // Finds the Course in the map and returns it's number of credits
-    for(auto v = adjList.begin(); v != adjList.end(); v++){
-        if(v->second.id == course){
-            return v->second.credits;
-        }
-    }
-    return 0;
 }
 
 Course Graph::getCourse(string id){
