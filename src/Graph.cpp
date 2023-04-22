@@ -22,15 +22,13 @@ void Graph::removeCourse(std::string id)
             for(auto & preReq: course.second.preReqs){
                 if(preReq == id){
                     course.second.preReqs.erase(id);
+                    break;
                 }
             }
         }
-
-        //remove course itself
-        if(course.second.id == id){
-            adjList.erase(id);
-        }
     }
+    adjList.erase(id);
+
 }
 
 std::vector<std::vector<Course>> Graph::topSort()
@@ -96,7 +94,7 @@ std::vector<std::vector<Course>> Graph::topSort()
 std::vector<Course> Graph::getAvaliableCourses(Graph& ogGraph){
 
     std::vector<Course> result;
-    for (auto iter : ogGraph.adjList) {
+    for (auto iter : adjList) {
         if (iter.second.preReqs.empty()) {
             result.push_back(ogGraph.getCourse(iter.first));
         }

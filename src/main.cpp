@@ -111,8 +111,8 @@ std::vector<Course> selectFromAvailableCourses(std::vector<Course>& availableCou
     int currentCredit=0;
 
     //print available courses
-    for(auto course = availableCourses.begin(); course != availableCourses.end(); course++){
-        cout << course->id << " " << course->name << "  Credits: "<< course->credits <<endl;
+    for(auto & availableCourse : availableCourses){
+        cout << availableCourse.id << " " << availableCourse.name << "  Credits: "<< availableCourse.credits <<endl;
     }
 
     cout<< "_________________________________"<<endl;
@@ -124,7 +124,6 @@ std::vector<Course> selectFromAvailableCourses(std::vector<Course>& availableCou
     bool limitReached = false, classFound = false;
 
     while(!limitReached){
-        classFound = false;
         cin>>selection;
         for(auto & course : availableCourses){
             //insert selected course into return vector
@@ -136,15 +135,17 @@ std::vector<Course> selectFromAvailableCourses(std::vector<Course>& availableCou
             }
             // credit limit reached
             else if(course.id == selection){
-                cout << "Cannot add class, will exceed "<< credits <<" credits"<<endl;
+                cout << "Cannot add "<< course.id <<", will exceed "<< credits <<" credits"<<endl;
+                cout<<endl;
                 limitReached = true;
                 classFound = true;
                 break;
             }
-            //invalid input
         }
+        //invalid input
         if(!classFound){
             cout << "Invalid Course, please try again"<<endl;
+            classFound = false;
         }
     }
 
@@ -185,6 +186,7 @@ void runProgram(Graph& originalGraph){
 
         // add current selection to model semester plan
         finalCourseSchedule.push_back(selectedCourses);
+        currentSemester++;
 
     }
 
@@ -200,7 +202,6 @@ void runProgram(Graph& originalGraph){
     // first: Loop throguh vector and create a graph with only those courses
     // run top sort on that graph, and grab the resulting vector
     // just print the resulting vector and see if the student likes it.
-
 
 }
 
