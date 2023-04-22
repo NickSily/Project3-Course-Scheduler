@@ -1,4 +1,5 @@
 #include<iostream>
+#include <iomanip>
 #include<string>
 #include<vector>
 #include<fstream>
@@ -103,6 +104,16 @@ void printSemesterPlan(std::vector<std::vector<Course>>& finalSemesterPlan){
             * Calculus 2
         (or some shit like that)
     */
+    int semester = 1;
+    for (auto plan : finalSemesterPlan) {
+        cout << setw(11) << "Semester " << semester << "\n";
+        cout << "----------------" << "\n";
+        cout << "Course" << setw(9) << "Credits" << "\n";
+        for (int i = 0; i < plan.size(); i++) {
+            cout << plan[i].id << setw(8) << plan[i].credits << "\n";
+        }
+        semester++;
+    }
 }
 
 std::vector<Course> selectFromAvailableCourses(std::vector<Course>& availableCourses, int credits){
@@ -111,8 +122,8 @@ std::vector<Course> selectFromAvailableCourses(std::vector<Course>& availableCou
     int currentCredit=0;
 
     //print available courses
-    for(auto course = availableCourses.begin(); course != availableCourses.end(); course++){
-        cout << course->id << " " << course->name << "  Credits: "<< course->credits <<endl;
+    for(auto & availableCourse : availableCourses){
+        cout << availableCourse.id << " " << availableCourse.name << "  Credits: "<< availableCourse.credits <<endl;
     }
 
     cout<< "_________________________________"<<endl;
@@ -121,25 +132,34 @@ std::vector<Course> selectFromAvailableCourses(std::vector<Course>& availableCou
     string selection;
     // temp course to add to selected vector
     Course temp;
-    bool limitReached = false;
+    bool limitReached = false, classFound = false;
 
     while(!limitReached){
+        if (currentCredit == credits) {
+            break;
+        }
         cin>>selection;
-        for(auto & availableCourse : availableCourses){
+        for(auto & course : availableCourses){
             //insert selected course into return vector
-            if(availableCourse.id == selection && (availableCourse.credits + currentCredit) <= credits){
-                selectedCourses.push_back(availableCourse);
-            }
-            // credit limit reached
-            else if(availableCourse.id == selection){
-                cout << "Cannot add class, will exceed "<< credits <<" credits"<<endl;
-                limitReached = true;
+            if(course.id == selection && (course.credits + currentCredit) <= credits){
+                selectedCourses.push_back(course);
+                currentCredit += course.credits;
+                classFound = true;
                 break;
             }
-            //invalid input
-            else {
-                cout << "Invalid Course"<<endl;
+            // credit limit reached
+            else if(course.id == selection){
+                cout << "Cannot add "<< course.id <<", will exceed "<< credits <<" credits"<<endl;
+                cout<<endl;
+                limitReached = true;
+                classFound = true;
+                break;
             }
+        }
+        //invalid input
+        if(!classFound){
+            cout << "Invalid Course, please try again"<<endl;
+            classFound = false;
         }
     }
 
@@ -174,14 +194,17 @@ void runProgram(Graph& originalGraph){
 
 
         // remove selected courses from graph
-
+        for(auto & selectedCourses : selectedCourses ){
+            graphCopy.removeCourse(selectedCourses.id);
+        }
 
         // add current selection to model semester plan
         finalCourseSchedule.push_back(selectedCourses);
+        currentSemester++;
 
     }
 
-    // We've been storing all the semester into on big vector of vectors, so let's just print that
+    // print semester model plan
     printSemesterPlan(finalCourseSchedule);
 
 
@@ -193,7 +216,6 @@ void runProgram(Graph& originalGraph){
     // first: Loop throguh vector and create a graph with only those courses
     // run top sort on that graph, and grab the resulting vector
     // just print the resulting vector and see if the student likes it.
-
 
 }
 

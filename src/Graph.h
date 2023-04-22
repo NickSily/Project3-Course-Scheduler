@@ -50,7 +50,6 @@ public:
     void removeCourse(std::string id);
     std::vector<std::vector<Course>> topSort();
     std::vector<Course> getAvaliableCourses(Graph& ogGraph);
-    int getCredit(string course);
-    Course getCourse(string course);
+    Course getCourse(string id);
 
 };
