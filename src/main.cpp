@@ -105,6 +105,37 @@ void printSemesterPlan(std::vector<std::vector<Course>>& finalSemesterPlan){
     */
 }
 
+std::vector<Course> selectFromAvailableCourses(std::vector<Course>& availableCourses, int credits){
+    /*Fix me */ // This may be the biggest and most important method so patience here.
+
+    // print out all available courses (name + id + credits)
+
+    /*
+    Keep getting input from the user until, either:
+        num Credits in the semester is hit
+        no more available courses
+
+        GEt the input from the user and add the corresponding course to the vector
+            update the total credit count for the semester
+
+    Remove the selected courses from the Graph
+
+    Return the vector with the selected courses for the semester
+
+
+    */
+
+
+    std::vector<Course> selectedCourses;
+
+    return selectedCourses;
+    /*
+    Now that we have the courses the user will take on the semester, we can remove them from the graph
+    That way we can calculate the available courses next semester
+    */
+}
+
+
 void runProgram(Graph& originalGraph){
     //Make a copy of original graph so that no info is lost 
     Graph graphCopy(originalGraph);
@@ -161,36 +192,6 @@ void runProgram(Graph& originalGraph){
 
 
 
-}
-
-std::vector<Course> selectFromAvailableCourses(std::vector<Course>& availableCourses, int credits){
-    /*Fix me */ // This may be the biggest and most important method so patience here.
-
-    // print out all available courses (name + id + credits)
-
-    /*
-    Keep getting input from the user until, either:
-        num Credits in the semester is hit
-        no more available courses
-
-        GEt the input from the user and add the corresponding course to the vector
-            update the total credit count for the semester
-
-    Remove the selected courses from the Graph
-
-    Return the vector with the selected courses for the semester
-
-
-    */
-
-
-    std::vector<Course> selectedCourses;
-
-    return selectedCourses;
-    /* 
-    Now that we have the courses the user will take on the semester, we can remove them from the graph
-    That way we can calculate the available courses next semester
-    */
 }
 
 
