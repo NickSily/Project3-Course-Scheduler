@@ -16,9 +16,19 @@ void Graph::insertCourse(std::string id, std::string name, std::string credits, 
 
 void Graph::removeCourse(std::string id)
 {
-    for(auto & adjList : adjList){
-        if(adjList.second.id == id){
+    //remove as preReq for any classes
+    for(auto & course : adjList){
+        if(!course.second.preReqs.empty()){
+            for(auto & preReq: course.second.preReqs){
+                if(preReq == id){
+                    course.second.preReqs.erase(id);
+                }
+            }
+        }
 
+        //remove course itself
+        if(course.second.id == id){
+            adjList.erase(id);
         }
     }
 }

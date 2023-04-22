@@ -121,25 +121,30 @@ std::vector<Course> selectFromAvailableCourses(std::vector<Course>& availableCou
     string selection;
     // temp course to add to selected vector
     Course temp;
-    bool limitReached = false;
+    bool limitReached = false, classFound = false;
 
     while(!limitReached){
+        classFound = false;
         cin>>selection;
-        for(auto & availableCourse : availableCourses){
+        for(auto & course : availableCourses){
             //insert selected course into return vector
-            if(availableCourse.id == selection && (availableCourse.credits + currentCredit) <= credits){
-                selectedCourses.push_back(availableCourse);
+            if(course.id == selection && (course.credits + currentCredit) <= credits){
+                selectedCourses.push_back(course);
+                currentCredit += course.credits;
+                classFound = true;
+                break;
             }
             // credit limit reached
-            else if(availableCourse.id == selection){
+            else if(course.id == selection){
                 cout << "Cannot add class, will exceed "<< credits <<" credits"<<endl;
                 limitReached = true;
+                classFound = true;
                 break;
             }
             //invalid input
-            else {
-                cout << "Invalid Course"<<endl;
-            }
+        }
+        if(!classFound){
+            cout << "Invalid Course, please try again"<<endl;
         }
     }
 
