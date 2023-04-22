@@ -16,7 +16,11 @@ void Graph::insertCourse(std::string id, std::string name, std::string credits, 
 
 void Graph::removeCourse(std::string id)
 {
-    for()
+    for(auto & adjList : adjList){
+        if(adjList.second.id == id){
+
+        }
+    }
 }
 
 std::vector<std::vector<Course>> Graph::topSort()
