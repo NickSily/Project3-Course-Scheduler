@@ -22,7 +22,7 @@ struct Course{
 inline Course::Course(std::string id, std::string name, std::string credits, std::vector<std::string>& preReqs){
     this->id = id;
     this->name = name;
-    this->credits = std::stoi(credits);
+    this->credits = stoi(credits);
     for (auto i : preReqs){
         this->preReqs.emplace(i);
     }
