@@ -104,5 +104,5 @@ std::vector<Course> Graph::getAvaliableCourses(Graph& ogGraph){
 
 Course Graph::getCourse(string id){
     /*Find the Course in the graph, and return it*/
-    return adjList[id];
+    return adjList.at(id);
 }
