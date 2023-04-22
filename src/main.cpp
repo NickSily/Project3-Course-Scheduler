@@ -1,4 +1,5 @@
 #include<iostream>
+#include <iomanip>
 #include<string>
 #include<vector>
 #include<fstream>
@@ -103,6 +104,16 @@ void printSemesterPlan(std::vector<std::vector<Course>>& finalSemesterPlan){
             * Calculus 2
         (or some shit like that)
     */
+    int semester = 1;
+    for (auto plan : finalSemesterPlan) {
+        cout << setw(11) << "Semester " << semester << "\n";
+        cout << "----------------" << "\n";
+        cout << "Course" << setw(9) << "Credits" << "\n";
+        for (int i = 0; i < plan.size(); i++) {
+            cout << plan[i].id << setw(8) << plan[i].credits << "\n";
+        }
+        semester++;
+    }
 }
 
 std::vector<Course> selectFromAvailableCourses(std::vector<Course>& availableCourses, int credits){
@@ -124,6 +135,9 @@ std::vector<Course> selectFromAvailableCourses(std::vector<Course>& availableCou
     bool limitReached = false, classFound = false;
 
     while(!limitReached){
+        if (currentCredit == credits) {
+            break;
+        }
         cin>>selection;
         for(auto & course : availableCourses){
             //insert selected course into return vector
