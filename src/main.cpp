@@ -4,6 +4,7 @@
 #include<vector>
 #include<fstream>
 #include<sstream>
+#include<string.h>
 #include "Graph.h"
 
 using namespace std;
@@ -90,20 +91,7 @@ void readCSV(string filename, Graph& graph){
 }
 
 void printSemesterPlan(std::vector<std::vector<Course>>& finalSemesterPlan){
-    /*  FIX ME*/
-    // This function just prints the contents of our semester planner
-    // Let's try to make it look pretty as it's the final output of our program
-    // Print all the courses in each semester
-    /*
-    example:
-        Semester 1:
-            * Geomtry
-            * Calculus 1
-        Semester 2:
-            * Prog 1
-            * Calculus 2
-        (or some shit like that)
-    */
+
     int semester = 1;
     for (auto plan : finalSemesterPlan) {
         cout << setw(11) << "Semester " << semester << "\n";
@@ -123,22 +111,20 @@ std::vector<Course> selectFromAvailableCourses(std::vector<Course>& availableCou
 
     //print available courses
     for(auto & availableCourse : availableCourses){
-        cout << availableCourse.id << " " << availableCourse.name << "  Credits: "<< availableCourse.credits <<endl;
+        cout << availableCourse.id << ", " << availableCourse.name << "  Credits: "<< availableCourse.credits <<endl;
     }
 
     cout<< "_________________________________"<<endl;
 
     int accumulatedCredits=0;
-    string selection;
     // temp course to add to selected vector
     Course temp;
-    bool limitReached = false, classFound = false;
-
-    while(!limitReached){
-        if (currentCredit == credits) {
-            break;
-        }
-        cin>>selection;
+    bool limitReached = false, classFound;
+while(!limitReached){
+        classFound = false;
+        //selection = selected class
+        string selection;
+        getline(cin >> ws,selection);
         for(auto & course : availableCourses){
             //insert selected course into return vector
             if(course.id == selection && (course.credits + currentCredit) <= credits){
@@ -155,11 +141,23 @@ std::vector<Course> selectFromAvailableCourses(std::vector<Course>& availableCou
                 classFound = true;
                 break;
             }
+
         }
-        //invalid input
-        if(!classFound){
+        //all possible classes selected
+        if(selectedCourses.size() == availableCourses.size()){
+            cout << endl;
+            limitReached = true;
+            classFound = true;
+            break;
+        }
+        //invalid class selection
+        else if(!classFound){
             cout << "Invalid Course, please try again"<<endl;
             classFound = false;
+        }
+        //semester credit limit reached
+        if (currentCredit == credits) {
+            break;
         }
     }
 
@@ -189,7 +187,6 @@ void runProgram(Graph& originalGraph){
         cout<< "Please select from the following list of courses for semester "<< currentSemester<<endl;
 
         std::vector<Course> availableCourses(graphCopy.getAvaliableCourses(originalGraph));
-
         std::vector<Course> selectedCourses(selectFromAvailableCourses(availableCourses, numCredits));
 
 
