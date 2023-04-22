@@ -51,5 +51,8 @@ public:
     void insertCourse(std::string id, std::string name, std::string credits, std::vector<std::string>& preReq);
     void removeCourse(std::string id);
     std::vector<std::vector<Course>> topSort();
+    std::vector<Course> getAvaliableCourses(Graph& ogGraph);
     int getCredit(string course);
+    Course getCourse(string course);
+
 };

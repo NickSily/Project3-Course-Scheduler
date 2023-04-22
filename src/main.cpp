@@ -105,8 +105,9 @@ void printSemesterPlan(std::vector<std::vector<Course>>& finalSemesterPlan){
     */
 }
 
-void runProgram(Graph CourseGraphcopy){
-    //Makes copy of original graph so that no info is lost (That is why we didn't pass by reference)
+void runProgram(Graph& originalGraph){
+    //Make a copy of original graph so that no info is lost 
+    Graph graphCopy(originalGraph);
 
     // Keep a vector of vector of courses, keeping track of all selected in each semester
     std::vector<std::vector<Course>> finalCourseSchedule;
@@ -124,12 +125,19 @@ void runProgram(Graph CourseGraphcopy){
 
     while(currentSemester <= numSemesters){
         //Get available courses and put them into the vector
-        std::vector<Course> availableCourses(getAvaliableCourses(CourseGraphcopy));
+        std::vector<Course> availableCourses(graphCopy.getAvaliableCourses(originalGraph));
 
         // print the Available Courses to the user, and let him pick the courses he wants
         // The courses he wants will be removed from the first vector and added to a second one
         std::vector<Course> selectedCourses(selectFromAvailableCourses(availableCourses, numCredits));
 
+
+        // // Now that we have the classes he has chosen, let's remove those courses (vertices) fromt the graph
+        // // Let's also update the amount of credits we have so far
+        // for (auto course : selectedCourses){
+        //     credits += course.credits;
+        //     graphCopy.removeCourse(course.id);
+        // }
 
         // let's just add the current semester's courses to our result so we have it for later
         finalCourseSchedule.push_back(selectedCourses);
@@ -155,21 +163,7 @@ void runProgram(Graph CourseGraphcopy){
 
 }
 
-
-std::vector<Course> getAvaliableCourses(Graph& courseGraph){
-    /*
-    FIX ME
-    Get the available courses for the current semester, here's how:
-    loop through the Graph:
-        if course indegree is 0 (no preReqs):
-           Add it to the vector
-    return the vector
-    */
-    std::vector<Course> result;
-    return result;
-}
-
-std::vector<Course> selectFromAvailableCourses(std::vector<Course>& availableCourses){
+std::vector<Course> selectFromAvailableCourses(std::vector<Course>& availableCourses, int credits){
     /*Fix me */ // This may be the biggest and most important method so patience here.
 
     // print out all available courses (name + id + credits)
@@ -182,7 +176,11 @@ std::vector<Course> selectFromAvailableCourses(std::vector<Course>& availableCou
         GEt the input from the user and add the corresponding course to the vector
             update the total credit count for the semester
 
+    Remove the selected courses from the Graph
+
     Return the vector with the selected courses for the semester
+
+
     */
 
 
