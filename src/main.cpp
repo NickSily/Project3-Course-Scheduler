@@ -173,16 +173,15 @@ void runProgram(Graph& originalGraph){
         std::vector<Course> selectedCourses(selectFromAvailableCourses(availableCourses, numCredits));
 
 
-        // // Now that we have the classes he has chosen, let's remove those courses (vertices) fromt the graph
+        // remove selected courses from graph
 
-        // let's just add the current semester's courses to our result so we have it for later
+
+        // add current selection to model semester plan
         finalCourseSchedule.push_back(selectedCourses);
 
-        // Great, now our graph is updated and we can move on to the next semester's available courses. so let's loop
     }
 
-    // Great now our student has built his model semester plan, so let's show the final result
-    // We've been storing all the semester into on big vector of vectors, so let's just print that 
+    // We've been storing all the semester into on big vector of vectors, so let's just print that
     printSemesterPlan(finalCourseSchedule);
 
 
@@ -194,7 +193,6 @@ void runProgram(Graph& originalGraph){
     // first: Loop throguh vector and create a graph with only those courses
     // run top sort on that graph, and grab the resulting vector
     // just print the resulting vector and see if the student likes it.
-
 
 
 }
