@@ -132,12 +132,11 @@ std::vector<Course> selectFromAvailableCourses(std::vector<Course>& availableCou
     string selection;
     // temp course to add to selected vector
     Course temp;
-    bool limitReached = false, classFound = false;
+    bool limitReached = false, classFound;
 
     while(!limitReached){
-        if (currentCredit == credits) {
-            break;
-        }
+        classFound = false;
+
         cin>>selection;
         for(auto & course : availableCourses){
             //insert selected course into return vector
@@ -160,6 +159,10 @@ std::vector<Course> selectFromAvailableCourses(std::vector<Course>& availableCou
         if(!classFound){
             cout << "Invalid Course, please try again"<<endl;
             classFound = false;
+        }
+
+        if (currentCredit == credits) {
+            break;
         }
     }
 
