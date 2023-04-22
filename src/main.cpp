@@ -106,33 +106,45 @@ void printSemesterPlan(std::vector<std::vector<Course>>& finalSemesterPlan){
 }
 
 std::vector<Course> selectFromAvailableCourses(std::vector<Course>& availableCourses, int credits){
-    /*Fix me */ // This may be the biggest and most important method so patience here.
-
-    // print out all available courses (name + id + credits)
-
-    /*
-    Keep getting input from the user until, either:
-        num Credits in the semester is hit
-        no more available courses
-
-        GEt the input from the user and add the corresponding course to the vector
-            update the total credit count for the semester
-
-    Remove the selected courses from the Graph
-
-    Return the vector with the selected courses for the semester
-
-
-    */
-
 
     std::vector<Course> selectedCourses;
+    int currentCredit=0;
+
+    //print available courses
+    for(auto course = availableCourses.begin(); course != availableCourses.end(); course++){
+        cout << course->id << " " << course->name << "  Credits: "<< course->credits <<endl;
+    }
+
+    cout<< "_________________________________"<<endl;
+
+    int accumulatedCredits=0;
+    string selection;
+    // temp course to add to selected vector
+    Course temp;
+    bool limitReached = false;
+
+    while(!limitReached){
+        cin>>selection;
+        for(auto & availableCourse : availableCourses){
+            //insert selected course into return vector
+            if(availableCourse.id == selection && (availableCourse.credits + currentCredit) <= credits){
+                selectedCourses.push_back(availableCourse);
+            }
+            // credit limit reached
+            else if(availableCourse.id == selection){
+                cout << "Cannot add class, will exceed "<< credits <<" credits"<<endl;
+                limitReached = true;
+                break;
+            }
+            //invalid input
+            else {
+                cout << "Invalid Course"<<endl;
+            }
+        }
+    }
 
     return selectedCourses;
-    /*
-    Now that we have the courses the user will take on the semester, we can remove them from the graph
-    That way we can calculate the available courses next semester
-    */
+
 }
 
 
@@ -144,7 +156,7 @@ void runProgram(Graph& originalGraph){
     std::vector<std::vector<Course>> finalCourseSchedule;
 
     // ask user to input Total number of credits
-    int numSemesters,numCredits, totalCredits ,currentSemester = 1;
+    int numSemesters,numCredits ,currentSemester = 1;
     string course;
     cout << "How many semesters do you wish to take: " << endl;
     cin >> numSemesters;
@@ -152,23 +164,16 @@ void runProgram(Graph& originalGraph){
     cin >>  numCredits;
     cout << endl;
 
-    totalCredits = numCredits* numSemesters;
-
     while(currentSemester <= numSemesters){
         //Get available courses and put them into the vector
+        cout<< "Please select from the following list of courses for semester "<< currentSemester<<endl;
+
         std::vector<Course> availableCourses(graphCopy.getAvaliableCourses(originalGraph));
 
-        // print the Available Courses to the user, and let him pick the courses he wants
-        // The courses he wants will be removed from the first vector and added to a second one
         std::vector<Course> selectedCourses(selectFromAvailableCourses(availableCourses, numCredits));
 
 
         // // Now that we have the classes he has chosen, let's remove those courses (vertices) fromt the graph
-        // // Let's also update the amount of credits we have so far
-        // for (auto course : selectedCourses){
-        //     credits += course.credits;
-        //     graphCopy.removeCourse(course.id);
-        // }
 
         // let's just add the current semester's courses to our result so we have it for later
         finalCourseSchedule.push_back(selectedCourses);
