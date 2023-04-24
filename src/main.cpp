@@ -119,7 +119,7 @@ std::vector<Course> selectFromAvailableCourses(std::vector<Course>& availableCou
         cout << availableCourse.id << ", " << availableCourse.name << "  Credits: "<< availableCourse.credits <<endl;
     }
 
-    cout<< "_________________________________"<<endl;
+    cout<< "___________________________________________"<<endl;
 
     int accumulatedCredits=0;
     // temp course to add to selected vector
@@ -184,11 +184,10 @@ void runProgram(Graph& originalGraph){
     cin >> numSemesters;
     cout << "How many credits each semester do you wish to take: " << endl;
     cin >>  numCredits;
-    cout << endl;
 
     while(currentSemester <= numSemesters){
         //Get available courses and put them into the vector
-        cout<< "Please select from the following list of courses for semester "<< currentSemester<<endl;
+        cout<<endl<< "Please select from the following list of courses for semester "<< currentSemester<<endl;
 
         std::vector<Course> availableCourses(graphCopy.getAvaliableCourses(originalGraph));
         std::vector<Course> selectedCourses(selectFromAvailableCourses(availableCourses, numCredits));
@@ -223,15 +222,15 @@ void runProgram(Graph& originalGraph){
     //new graph of only classes that were selected by user
     Graph optimizedSchedule;
 
-    for(auto & courseVector: finalCourseSchedule){
-        for(auto & course: courseVector){
-            //convert int back to string
-            stringstream s;
-            s<<course.credits;
-            string credits = s.str();
-            optimizedSchedule.insertCourse(course.id, course.name, credits, course.preReqs);
-        }
-    }
+//    for(auto & courseVector: finalCourseSchedule){
+//        for(auto & course: courseVector){
+//            //convert int back to string
+//            stringstream s;
+//            s<<course.credits;
+//            string credits = s.str();
+//            optimizedSchedule.insertCourse(course.id, course.name, credits, course.preReqs);
+//        }
+//    }
 
     optimizedCourseSchedule = optimizedSchedule.topSort(numSemesters, numCredits);
 
