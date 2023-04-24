@@ -44,7 +44,7 @@ void readCSV(string filename, Graph& graph){
 
     string line, id, name, credits, preReqList;
 
-    vector<std::string> preReqs;
+    unordered_set<std::string> preReqs;
     string nopreeq;
 
     // Get the header
@@ -70,7 +70,7 @@ void readCSV(string filename, Graph& graph){
             {
                 // examineString(preReq);
                 // std::cout << " ";
-                preReqs.push_back(preReq);
+                preReqs.insert(preReq);
             }
             // std::cout << std::endl;
         }
@@ -79,7 +79,7 @@ void readCSV(string filename, Graph& graph){
             if (preReqList.at(preReqList.size() -1 ) == '\r'){preReqList = preReqList.substr(0, preReqList.size() - 1);}
             // examineString(preReqList);
             // std::cout << std::endl;
-            preReqs.push_back(preReqList);
+            preReqs.insert(preReqList);
         }
 
         graph.insertCourse(id, name, credits, preReqs);
@@ -94,7 +94,7 @@ void printSemesterPlan(std::vector<std::vector<Course>>& finalSemesterPlan){
 
     int semester = 1;
     for (auto plan : finalSemesterPlan) {
-        cout << setw(11) << "Semester " << semester << "\n";
+        cout <<endl<< setw(11) << "Semester " << semester << "\n";
         cout << "----------------" << "\n";
         cout << "Course" << setw(9) << "Credits" << "\n";
         for (int i = 0; i < plan.size(); i++) {
@@ -106,8 +106,13 @@ void printSemesterPlan(std::vector<std::vector<Course>>& finalSemesterPlan){
 
 std::vector<Course> selectFromAvailableCourses(std::vector<Course>& availableCourses, int credits){
 
+
     std::vector<Course> selectedCourses;
     int currentCredit=0;
+    //return empty vector if available courses is empty
+    if(availableCourses.empty()){
+        return selectedCourses;
+    }
 
     //print available courses
     for(auto & availableCourse : availableCourses){
@@ -144,11 +149,9 @@ while(!limitReached){
 
         }
         //all possible classes selected
-        if(selectedCourses.size() == availableCourses.size()){
+        if(availableCourses.size() == selectedCourses.size()){
             cout << endl;
             limitReached = true;
-            classFound = true;
-            break;
         }
         //invalid class selection
         else if(!classFound){
@@ -172,6 +175,7 @@ void runProgram(Graph& originalGraph){
 
     // Keep a vector of vector of courses, keeping track of all selected in each semester
     std::vector<std::vector<Course>> finalCourseSchedule;
+    std::vector<std::vector<Course>> optimizedCourseSchedule;
 
     // ask user to input Total number of credits
     int numSemesters,numCredits ,currentSemester = 1;
@@ -189,7 +193,9 @@ void runProgram(Graph& originalGraph){
         std::vector<Course> availableCourses(graphCopy.getAvaliableCourses(originalGraph));
         std::vector<Course> selectedCourses(selectFromAvailableCourses(availableCourses, numCredits));
 
-
+        if(selectedCourses.empty()){
+            cout<<"No more available classes"<<endl;
+        }
         // remove selected courses from graph
         for(auto & selectedCourses : selectedCourses ){
             graphCopy.removeCourse(selectedCourses.id);
@@ -213,6 +219,21 @@ void runProgram(Graph& originalGraph){
     // first: Loop throguh vector and create a graph with only those courses
     // run top sort on that graph, and grab the resulting vector
     // just print the resulting vector and see if the student likes it.
+
+    //new graph of only classes that were selected by user
+    Graph optimizedSchedule;
+
+    for(auto & courseVector: finalCourseSchedule){
+        for(auto & course: courseVector){
+            //convert int back to string
+            stringstream s;
+            s<<course.credits;
+            string credits = s.str();
+            optimizedSchedule.insertCourse(course.id, course.name, credits, course.preReqs);
+        }
+    }
+
+    optimizedCourseSchedule = optimizedSchedule.topSort(numSemesters, numCredits);
 
 }
 
