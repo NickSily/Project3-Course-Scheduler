@@ -93,6 +93,24 @@ void Graph::removeCourse(std::string id)
 
 // sorts through a graph of slected classes and returns a vector of vector mock optimized plan
 std::vector<std::vector<Course>>  Graph::topSort(int semester, int credits) {
+    int currentSemester =0, currentcredits =0;
+
+    std::unordered_map<std::string, Course> tempAdjList = this->adjList;
+    vector<std::vector<Course>> resuts;
+    auto course = adjList.begin();
+
+    while(currentSemester <= semester){
+        while (currentcredits<=credits){
+            if((currentcredits+course->second.credits) > credits){
+
+            }
+            else{
+
+            }
+        }
+        currentcredits=0;
+        currentSemester++;
+    }
 
 }
 

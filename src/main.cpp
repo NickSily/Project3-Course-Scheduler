@@ -94,7 +94,7 @@ void printSemesterPlan(std::vector<std::vector<Course>>& finalSemesterPlan){
 
     int semester = 1;
     for (auto plan : finalSemesterPlan) {
-        cout << setw(11) << "Semester " << semester << "\n";
+        cout <<endl<< setw(11) << "Semester " << semester << "\n";
         cout << "----------------" << "\n";
         cout << "Course" << setw(9) << "Credits" << "\n";
         for (int i = 0; i < plan.size(); i++) {
@@ -225,7 +225,11 @@ void runProgram(Graph& originalGraph){
 
     for(auto & courseVector: finalCourseSchedule){
         for(auto & course: courseVector){
-            optimizedSchedule.insertCourse(course.id, course.name, reinterpret_cast<const char *>(course.credits), course.preReqs);
+            //convert int back to string
+            stringstream s;
+            s<<course.credits;
+            string credits = s.str();
+            optimizedSchedule.insertCourse(course.id, course.name, credits, course.preReqs);
         }
     }
 
