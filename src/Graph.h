@@ -13,13 +13,13 @@ struct Course{
     int credits;
     std::unordered_set<std::string> preReqs; // {cop_3503, cop_3502 ...}
     Course(){};
-    Course(std::string id, std::string name, std::string credits, std::vector<std::string>& preReqs);
+    Course(std::string id, std::string name, std::string credits, std::unordered_set<std::string>& preReqs);
     void addPreReq(std::string preReq);
     void print();
     // ~Course(){};
 };
 
-inline Course::Course(std::string id, std::string name, std::string credits, std::vector<std::string>& preReqs){
+inline Course::Course(std::string id, std::string name, std::string credits, std::unordered_set<std::string>& preReqs){
     this->id = id;
     this->name = name;
     this->credits = stoi(credits);
@@ -46,9 +46,9 @@ private:
 public:
     Graph();
     Graph(std::unordered_map<std::string, Course>&);
-    void insertCourse(std::string id, std::string name, std::string credits, std::vector<std::string>& preReq);
+    void insertCourse(std::string id, std::string name, std::string credits, std::unordered_set<std::string>& preReq);
     void removeCourse(std::string id);
-    std::vector<std::vector<Course>> topSort();
+    std::vector<std::vector<Course>> topSort(int Semesters, int credits);
     std::vector<Course> getAvaliableCourses(Graph& ogGraph);
     Course getCourse(string id);
 
