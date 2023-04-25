@@ -1,37 +1,14 @@
-# Folders
-##  bin
-Machine Code files
+# CSE Gator Planer
 
-## src
-Source files ( .cpp and .h or .hpp)
+</sub> This program works with students to help them create the most optimal schedule for students
 
-## test-unit
-Cache Test Module for testing. 
+<sub> * for CSE major only *
 
-## Makefile
-To run Program Type "make" in Linux terminal
-To run test type "make test" in Terminal
+## Students are able to choose 
 
-# Graph Class
-## Variables
-The Graph class contains an Directed Acyclic Graph of Course Objects. Implemented as an adjacency list that maps the course ID to a course object.
+```
+- Total number of semesters they desire to take
+- Max number of credits per semester 
+```
 
-Course Objects contain, a ID(string), Name(string), Credits(int) and PreRequisites (unordered set of courses).
-
-## Methods
-### Topological Sort
-The topological sort method will go through the DAG and place all items into a 2d vector, where each row represents a subsequent semester and the courses contained in that row are able to be taken at that semester.
-
-# Main
-The main.cpp file contains a method for reading data from a CSV. The CSV will contain all course information obtained from UF's website.
-
-During main's execution, the CSV file's courses are loaded into the map, then topological sort if performed to output a list of classes per semester that takes into account all pre-requisited.
-## Methods
-examineChar, examineString are just to help make sure the ReadCSV is working properly
-
-ReadCSV, read the data from csv file containing Courses and puts those courses into the Graph.
-
-
-
-
-
+</sub> Upon filling up your schedule the program will run a topological sort to further optimize the program ideally allowing the user to be able to take less credits in the last semester/ have room for more classes.
