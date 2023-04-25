@@ -219,7 +219,7 @@ int main()
     Graph myGraph;
 
     // Read the Data and create a graph with it
-    readCSV("Test1.csv", myGraph);
+    readCSV("CourseData.csv", myGraph);
 
     // runs the program
     runProgram(myGraph);
