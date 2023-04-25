@@ -190,7 +190,7 @@ void runProgram(Graph& originalGraph){
         //Get available courses and put them into the vector
         cout<<endl<< "Please select from the following list of courses for semester "<< currentSemester<<endl;
 
-        std::vector<Course> availableCourses(graphCopy.getAvaliableCourses(originalGraph));
+        std::vector<Course> availableCourses(graphCopy.getAvailableCourses(originalGraph));
         std::vector<Course> selectedCourses(selectFromAvailableCourses(availableCourses, numCredits));
 
         if(selectedCourses.empty()){
