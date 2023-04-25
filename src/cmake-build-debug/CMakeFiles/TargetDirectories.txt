@@ -1,3 +1,0 @@
-/Users/brian/Documents/GitHub/Project3-Course-Scheduler/src/cmake-build-debug/CMakeFiles/src.dir
-/Users/brian/Documents/GitHub/Project3-Course-Scheduler/src/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/brian/Documents/GitHub/Project3-Course-Scheduler/src/cmake-build-debug/CMakeFiles/rebuild_cache.dir
