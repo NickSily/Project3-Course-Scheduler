@@ -1,7 +1,8 @@
-#include<iostream>
 #include <iomanip>
 #include<string>
-#include<vector>
+#include <iostream>
+#include <vector>
+
 #include<fstream>
 #include<sstream>
 #include<string.h>
@@ -247,7 +248,7 @@ int main()
     // Read the Data and create a graph with it
     readCSV("Test1.csv", myGraph);
 
-    // runs the program 
+    // runs the program
     runProgram(myGraph);
 
     return 0;
