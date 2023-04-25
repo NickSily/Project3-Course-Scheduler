@@ -1,0 +1,3 @@
+/Users/brian/Desktop/Gatorr/cmake-build-debug/CMakeFiles/Gatorr.dir
+/Users/brian/Desktop/Gatorr/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/brian/Desktop/Gatorr/cmake-build-debug/CMakeFiles/rebuild_cache.dir
