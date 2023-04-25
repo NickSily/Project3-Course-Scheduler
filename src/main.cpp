@@ -1,8 +1,7 @@
+#include<iostream>
 #include <iomanip>
 #include<string>
-#include <iostream>
-#include <vector>
-
+#include<vector>
 #include<fstream>
 #include<sstream>
 #include<string.h>
@@ -95,9 +94,9 @@ void printSemesterPlan(std::vector<std::vector<Course>>& finalSemesterPlan){
 
     int semester = 1;
     for (auto plan : finalSemesterPlan) {
-        cout <<endl<< setw(12) << "Semester " << semester << "\n";
+        cout <<endl<< setw(11) << "Semester " << semester << "\n";
         cout << "----------------" << "\n";
-        cout << "Course" << setw(10) << "Credits" << "\n";
+        cout << "Course" << setw(9) << "Credits" << "\n";
         for (int i = 0; i < plan.size(); i++) {
             cout << plan[i].id << setw(8) << plan[i].credits << "\n";
         }
@@ -190,7 +189,7 @@ void runProgram(Graph& originalGraph){
         //Get available courses and put them into the vector
         cout<<endl<< "Please select from the following list of courses for semester "<< currentSemester<<endl;
 
-        std::vector<Course> availableCourses(graphCopy.getAvailableCourses(originalGraph));
+        std::vector<Course> availableCourses(graphCopy.getAvaliableCourses(originalGraph));
         std::vector<Course> selectedCourses(selectFromAvailableCourses(availableCourses, numCredits));
 
         if(selectedCourses.empty()){
@@ -223,20 +222,18 @@ void runProgram(Graph& originalGraph){
     //new graph of only classes that were selected by user
     Graph optimizedSchedule;
 
-    for(auto & courseVector: finalCourseSchedule){
-        for(auto & course: courseVector){
-            //convert int back to string
-            stringstream s;
-            s<<course.credits;
-            string credits = s.str();
-            optimizedSchedule.insertCourse(course.id, course.name, credits, course.preReqs);
-        }
-    }
+//    for(auto & courseVector: finalCourseSchedule){
+//        for(auto & course: courseVector){
+//            //convert int back to string
+//            stringstream s;
+//            s<<course.credits;
+//            string credits = s.str();
+//            optimizedSchedule.insertCourse(course.id, course.name, credits, course.preReqs);
+//        }
+//    }
 
     optimizedCourseSchedule = optimizedSchedule.topSort(numSemesters, numCredits);
 
-    std::cout << "\nHere is an optimized semester plan: \n";
-    printSemesterPlan(optimizedCourseSchedule);
 }
 
 
@@ -246,9 +243,9 @@ int main()
     Graph myGraph;
 
     // Read the Data and create a graph with it
-    readCSV("Test1.csv", myGraph);
+    readCSV("TestCourses.csv", myGraph);
 
-    // runs the program
+    // runs the program 
     runProgram(myGraph);
 
     return 0;

@@ -1,0 +1,11 @@
+Id,Name,Credits,preReqs
+A,America,4,
+B,Brasil,4,
+C,Colombia,3,
+D,Denmark,3,A
+E,Egipt,4,D
+F,France,3,D
+G,Gambia,4,"D,B"
+H,Hawaii,4,B
+I,Italy,3,"E,F"
+L,Lagos,4,G

@@ -24,7 +24,7 @@ CEN 4721,Human-Computer Interaction,3,COP 3530
 CEN 4722,User Experience Design,3,COP 3530
 CEN 4725,Natural User Interaction,3,COP 3530
 CEN 4914,Computer and Information Science and Engineering Design 2,3,CEN 3913
-CGS 2032,Math Art and Computing,3,MAC 1147
+CGS 2032,"Math, Art and Computing",3,MAC 1147
 CGS 3063,Computers and Modern Society,3,
 CGS 3065,Legal and Social Issues in Computing,3,
 CGS 4144,Introduction to Bioinformatic Algorithms,3,"COT 3100,COP 3503"
@@ -35,8 +35,8 @@ CIS 4360,Computer and Information Security,3,COP 4600
 CIS 4362,Introduction to Cryptology,3,COT 3100
 CIS 4912,Integrated Product and Process Design 1,3,"CDA 3101,COP 3530,COT 3100"
 CIS 4913,Integrated Product and Process Design 2,3,CIS 4912
-CIS 4940,Practical Work,3,
-CIS 4949,Co-Op Work in CISE,3,
+CIS 4940,Practical Work,,
+CIS 4949,Co-Op Work in CISE,,
 CNT 4007,Computer Network Fundamentals,3,COP 3530
 CNT 4520,Introduction to Mobile Networking,3,COP 3502
 CNT 4731,Multimedia Networking Principles,3,CNT 4007
@@ -54,7 +54,7 @@ COP 4620,Translators and Translator Writing Systems,3,COP 3530
 COP 4720,Information and Database Systems 2,3,"CIS 4301,COP 3530"
 COT 3100,Applications of Discrete Structures,3,MAC 2311
 COT 4501,Numerical Analysis: a Computational Approach,3,"COP 3503,MAS 3114"
-ENC 1101,Expository and Argumentative Writing,3,
+ENC 1101,Expository and Argumentative Writing,,
 ENC 3246,Professional Communication for Engineers,3,ENC 1101
 MAC 2311,Analytic Geometry and Calculus 1,4,
 MAC 2312,Analytic Geometry and Calculus 2,4,MAC 2311
