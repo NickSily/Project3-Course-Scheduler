@@ -1,11 +1,5 @@
-cmake_minimum_required(VERSION 3.21)
-project(src)
+build_run_main:
+	g++ -std=c++14 -Werror -Wuninitialized -o bin/main src/*.cpp && ./bin/main
 
-set(CMAKE_CXX_STANDARD 14)
-
-include_directories(.)
-
-add_executable(src
-        Graph.cpp
-        Graph.h
-        main.cpp)
+test:
+	g++ -std=c++14 -Werror -Wuninitialized -o bin/test test-unit/test.cpp && ./bin/test

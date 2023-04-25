@@ -8,7 +8,10 @@ response = requests.get(url)
 
 page = BeautifulSoup(response.content, 'html.parser')
 
+# print(courseCatalog.prettify())
+
 courseTable = []
+row = []
 
 courses = page.find_all("div", {"class": "courseblock courseblocktoggle"})
 
@@ -17,26 +20,16 @@ for course in courses:
     courseTitle = course.find("p", {"class": "courseblocktitle noindent"})
     courseTitle = courseTitle.find("strong")
     courseTitle = courseTitle.text.strip()
-
-    courseID = courseTitle
-    courseID = courseID[:8]
-
-    courseName = courseTitle
-    courseName = courseName[9:-9]
-    courseName = courseName.strip()
-
+    row.append(courseTitle)
 
     # Get Credits
     courseCredits = course.find("span", {"class": "credits"}).text.strip()
-    courseCredits = courseCredits[:-8]
-
+    row.append(courseCredits)
 
 
     # Get Pre Reqs
     extraBlocks = course.find_all("p", {"class": "courseblockextra noindent"})
     hasPreReq = False
-    preReqList = ""
-    preReqDataFrame
 
     for block in extraBlocks:
         if(block.find("strong") and block.find("strong").text == "Prerequisite:"):
@@ -48,6 +41,7 @@ for course in courses:
             # for link in block.find_all("a", {"class": "bubblelink code"}):
             #     if link:
             #         preReqList.append(link.text)
+            preReqList = ""
             for item in block:
                 if(item.name == "a"):
                     name = item.text[0:3]
@@ -58,15 +52,11 @@ for course in courses:
                 else:
                     # preReqList.append(item)
                     preReqList += item.text + ","
-            
-            preReqList = preReqList[18:]
-            
-            
-    
-    courseTable.append([courseID, courseName, courseCredits, preReqList])
+
+    courseTable.append([courseTitle, courseCredits, preReqList])
 
 
-df = pd.DataFrame( courseTable, columns= ["ID","Name", "Credits", "PreRequisites"])
+df = pd.DataFrame( courseTable, columns= ["Name", "Credits", "PreRequisites"])
 df.to_csv("OuputTest1.csv")
 
 
