@@ -19,7 +19,6 @@ void readCSV(string filename, Graph& graph){
     string line, id, name, credits, preReqList;
 
     unordered_set<std::string> preReqs;
-    string nopreeq;
 
     // Get the header
     getline(inFile, line);
@@ -35,7 +34,7 @@ void readCSV(string filename, Graph& graph){
         }
         // Remove the "" characters if needed
          else if(preReqList.at(0) == '\"'){
-            preReqList = preReqList.substr(1, preReqList.size() - 3);
+            preReqList = preReqList.substr(1, preReqList.size() - 2);
             // Convert to Stream
             std::stringstream preReqs_sstream(preReqList);
             std::string preReq;
@@ -114,7 +113,7 @@ while(!limitReached){
             }
             // credit limit reached
             else if(course.id == selection){
-                cout << "Cannot add "<< course.id <<", will exceed "<< credits <<" credits"<<endl;
+                cout << "Cannot add "<< course.id <<", will exceed "<< credits <<" credits."<<endl;
                 cout<<endl;
                 limitReached = true;
                 classFound = true;
@@ -129,7 +128,7 @@ while(!limitReached){
         }
         //invalid class selection
         else if(!classFound){
-            cout << "Invalid Course, please try again"<<endl;
+            cout << "Invalid Course, please try again."<<endl;
             classFound = false;
         }
         //semester credit limit reached
@@ -161,16 +160,16 @@ void runProgram(Graph& originalGraph){
 
     while(currentSemester <= numSemesters){
         //Get available courses and put them into the vector
-        cout<<endl<< "Please select from the following list of courses for semester "<< currentSemester<<endl;
+        cout<<endl<< "Please select from the following list of courses for semester "<< currentSemester << ":" <<endl;
 
         std::vector<Course> availableCourses(graphCopy.getAvailableCourses(originalGraph));
         std::vector<Course> selectedCourses(selectFromAvailableCourses(availableCourses, numCredits));
 
         if(selectedCourses.empty()){
-            cout<<"No more available classes"<<endl;
+            cout<<"No more available classes."<<endl;
         }
         // remove selected courses from graph
-        for(auto & selectedCourses : selectedCourses ){
+        for(auto & selectedCourses : selectedCourses){
             graphCopy.removeCourse(selectedCourses.id);
         }
 
