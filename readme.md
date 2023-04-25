@@ -1,6 +1,6 @@
 # CSE Gator Planer
 
-</sub> This program works with students to help them create the most optimal schedule for students
+</sub> This program works with students to help them create the most optimal schedule
 
 <sub> * for CSE major only *
 
