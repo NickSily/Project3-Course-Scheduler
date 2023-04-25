@@ -5,35 +5,9 @@
 
 #include<fstream>
 #include<sstream>
-#include<string.h>
 #include "Graph.h"
 
 using namespace std;
-
-void examineChar(char c){
-	if(c=='\n')
-		std::cout << "\\n";
-	else if(c=='\r')
-		std::cout << "\\r";
-	else if(c=='\b')
-		std::cout << "\\b";
-	else if(c=='\t')
-		std::cout << "\\t";
-	else if(c=='\a')
-		std::cout << "\\a";
-	else if(c=='\v')
-		std::cout << "\\v";
-	else if(c=='\0')
-		std::cout << "\\0";
-	else
-		std::cout << c;
-}
-
-void examineString(string s){
-	if(s!="")
-	    for(int i=0;i<s.length();i++)
-			examineChar(s[i]);
-}
 
 void readCSV(string filename, Graph& graph){
     // Open csv file
