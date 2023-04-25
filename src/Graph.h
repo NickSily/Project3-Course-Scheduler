@@ -1,7 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include<queue>
+#include <queue>
+#include <algorithm>
 #include <unordered_map>
 #include <unordered_set>
 

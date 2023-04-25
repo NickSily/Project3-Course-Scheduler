@@ -93,25 +93,51 @@ void Graph::removeCourse(std::string id)
 
 // sorts through a graph of slected classes and returns a vector of vector mock optimized plan
 std::vector<std::vector<Course>>  Graph::topSort(int semester, int credits) {
-    int currentSemester =0, currentcredits =0;
-
     std::unordered_map<std::string, Course> tempAdjList = this->adjList;
-    vector<std::vector<Course>> resuts;
-    auto course = adjList.begin();
+    int currentSemester =1;
+    vector<Course> temp;
+    vector<Course> optimizedSemester;
+    vector<std::vector<Course>> results;
 
     while(currentSemester <= semester){
-        while (currentcredits<=credits){
-            if((currentcredits+course->second.credits) > credits){
 
-            }
-            else{
-
+        int currentCredits = 0;
+        for (auto course : tempAdjList) {
+            if (course.second.preReqs.size() == 0) {
+                temp.push_back(adjList.at(course.first));
             }
         }
-        currentcredits=0;
+
+        std::sort(temp.begin(), temp.end(), [](const auto& lhs, const auto&rhs) {
+            return lhs.credits > rhs.credits;
+        });
+
+        for (auto iter : temp) {
+            if (currentCredits + iter.credits <= credits) {
+                optimizedSemester.push_back(iter);
+                currentCredits += iter.credits;
+            }
+        }
+        for (auto i : optimizedSemester) {
+            for (auto &course: tempAdjList) {
+                if (!course.second.preReqs.empty()) {
+                    for (auto &preReq: course.second.preReqs) {
+                        if (preReq == i.id) {
+                            course.second.preReqs.erase(i.id);
+                            break;
+                        }
+                    }
+                }
+            }
+            tempAdjList.erase(i.id);
+        }
+
+        results.push_back(optimizedSemester);
+        optimizedSemester.clear();
+        temp.clear();
         currentSemester++;
     }
-
+    return results;
 }
 
 std::vector<Course> Graph::getAvaliableCourses(Graph& ogGraph){
