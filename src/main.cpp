@@ -1,7 +1,8 @@
-#include<iostream>
 #include <iomanip>
 #include<string>
-#include<vector>
+#include <iostream>
+#include <vector>
+
 #include<fstream>
 #include<sstream>
 #include<string.h>
@@ -222,15 +223,15 @@ void runProgram(Graph& originalGraph){
     //new graph of only classes that were selected by user
     Graph optimizedSchedule;
 
-//    for(auto & courseVector: finalCourseSchedule){
-//        for(auto & course: courseVector){
-//            //convert int back to string
-//            stringstream s;
-//            s<<course.credits;
-//            string credits = s.str();
-//            optimizedSchedule.insertCourse(course.id, course.name, credits, course.preReqs);
-//        }
-//    }
+    for(auto & courseVector: finalCourseSchedule){
+        for(auto & course: courseVector){
+            //convert int back to string
+            stringstream s;
+            s<<course.credits;
+            string credits = s.str();
+            optimizedSchedule.insertCourse(course.id, course.name, credits, course.preReqs);
+        }
+    }
 
     optimizedCourseSchedule = optimizedSchedule.topSort(numSemesters, numCredits);
 
@@ -245,7 +246,7 @@ int main()
     // Read the Data and create a graph with it
     readCSV("TestCourses.csv", myGraph);
 
-    // runs the program 
+    // runs the program
     runProgram(myGraph);
 
     return 0;
