@@ -1,9 +1,0 @@
-Id,Name,Credits,preReqs
-COP 3502,Programming Fundamentals 1,4,
-COP 3503,Programmin Fundamentals 2,4,COP 3502
-CDA 6969,Constructive Dimentional Analysis,3,COP 3503
-BBL 4021,Braile Brazilian Linguistics,3,COP 3503
-ADT 4040,Abstract Data Topology,4,"CDA 6969,BST 3245"
-BST 3245,Binary Seach Tree,3,COP 3503
-YGA 8080,Yoga,4,BBL 4021
-BLC 4040,Binary Language Certification,4,
