@@ -78,23 +78,19 @@ void printSemesterPlan(std::vector<std::vector<Course>>& finalSemesterPlan){
 }
 
 std::vector<Course> selectFromAvailableCourses(std::vector<Course>& availableCourses, int credits){
-
-
     std::vector<Course> selectedCourses;
-    int currentCredit=0;
-    //return empty vector if available courses is empty
-    if(availableCourses.empty()){
-        return selectedCourses;
-    }
+    int currentCredit = 0;
 
     //print available courses
+    int count = 1;
     for(auto & availableCourse : availableCourses){
-        cout << availableCourse.id << ", " << availableCourse.name << "  Credits: "<< availableCourse.credits <<endl;
+        cout << count << ". " << availableCourse.id << ", " << availableCourse.name << "| Credits: "<< availableCourse.credits <<endl;
     }
-
     cout<< "___________________________________________"<<endl;
 
-    int accumulatedCredits=0;
+    int totalCredits=0;
+
+    // While 
     // temp course to add to selected vector
     Course temp;
     bool limitReached = false, classFound;
@@ -140,7 +136,6 @@ while(!limitReached){
     return selectedCourses;
 
 }
-
 
 void runProgram(Graph& originalGraph){
     //Make a copy of original graph so that no info is lost 
