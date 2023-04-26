@@ -1,7 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include<queue>
+#include <queue>
+#include <algorithm>
 #include <unordered_map>
 #include <unordered_set>
 
@@ -49,7 +50,7 @@ public:
     void insertCourse(std::string id, std::string name, std::string credits, std::unordered_set<std::string>& preReq);
     void removeCourse(std::string id);
     std::vector<std::vector<Course>> topSort(int Semesters, int credits);
-    std::vector<Course> getAvaliableCourses(Graph& ogGraph);
+    std::vector<Course> getAvailableCourses(Graph& ogGraph);
     Course getCourse(string id);
 
 };

@@ -1,38 +1,12 @@
-#include<iostream>
 #include <iomanip>
 #include<string>
-#include<vector>
+#include <iostream>
+#include <vector>
 #include<fstream>
 #include<sstream>
-#include<string.h>
 #include "Graph.h"
 
 using namespace std;
-
-void examineChar(char c){
-	if(c=='\n')
-		std::cout << "\\n";
-	else if(c=='\r')
-		std::cout << "\\r";
-	else if(c=='\b')
-		std::cout << "\\b";
-	else if(c=='\t')
-		std::cout << "\\t";
-	else if(c=='\a')
-		std::cout << "\\a";
-	else if(c=='\v')
-		std::cout << "\\v";
-	else if(c=='\0')
-		std::cout << "\\0";
-	else
-		std::cout << c;
-}
-
-void examineString(string s){
-	if(s!="")
-	    for(int i=0;i<s.length();i++)
-			examineChar(s[i]);
-}
 
 void readCSV(string filename, Graph& graph){
     // Open csv file
@@ -45,7 +19,6 @@ void readCSV(string filename, Graph& graph){
     string line, id, name, credits, preReqList;
 
     unordered_set<std::string> preReqs;
-    string nopreeq;
 
     // Get the header
     getline(inFile, line);
@@ -61,7 +34,7 @@ void readCSV(string filename, Graph& graph){
         }
         // Remove the "" characters if needed
          else if(preReqList.at(0) == '\"'){
-            preReqList = preReqList.substr(1, preReqList.size() - 3);
+            preReqList = preReqList.substr(1, preReqList.size() - 2);
             // Convert to Stream
             std::stringstream preReqs_sstream(preReqList);
             std::string preReq;
@@ -94,9 +67,9 @@ void printSemesterPlan(std::vector<std::vector<Course>>& finalSemesterPlan){
 
     int semester = 1;
     for (auto plan : finalSemesterPlan) {
-        cout <<endl<< setw(11) << "Semester " << semester << "\n";
+        cout <<endl<< setw(12) << "Semester " << semester << "\n";
         cout << "----------------" << "\n";
-        cout << "Course" << setw(9) << "Credits" << "\n";
+        cout << "Course" << setw(10) << "Credits" << "\n";
         for (int i = 0; i < plan.size(); i++) {
             cout << plan[i].id << setw(8) << plan[i].credits << "\n";
         }
@@ -119,7 +92,7 @@ std::vector<Course> selectFromAvailableCourses(std::vector<Course>& availableCou
         cout << availableCourse.id << ", " << availableCourse.name << "  Credits: "<< availableCourse.credits <<endl;
     }
 
-    cout<< "_________________________________"<<endl;
+    cout<< "___________________________________________"<<endl;
 
     int accumulatedCredits=0;
     // temp course to add to selected vector
@@ -140,7 +113,7 @@ while(!limitReached){
             }
             // credit limit reached
             else if(course.id == selection){
-                cout << "Cannot add "<< course.id <<", will exceed "<< credits <<" credits"<<endl;
+                cout << "Cannot add "<< course.id <<", will exceed "<< credits <<" credits."<<endl;
                 cout<<endl;
                 limitReached = true;
                 classFound = true;
@@ -155,7 +128,7 @@ while(!limitReached){
         }
         //invalid class selection
         else if(!classFound){
-            cout << "Invalid Course, please try again"<<endl;
+            cout << "Invalid Course, please try again."<<endl;
             classFound = false;
         }
         //semester credit limit reached
@@ -184,20 +157,19 @@ void runProgram(Graph& originalGraph){
     cin >> numSemesters;
     cout << "How many credits each semester do you wish to take: " << endl;
     cin >>  numCredits;
-    cout << endl;
 
     while(currentSemester <= numSemesters){
         //Get available courses and put them into the vector
-        cout<< "Please select from the following list of courses for semester "<< currentSemester<<endl;
+        cout<<endl<< "Please select from the following list of courses for semester "<< currentSemester << ":" <<endl;
 
-        std::vector<Course> availableCourses(graphCopy.getAvaliableCourses(originalGraph));
+        std::vector<Course> availableCourses(graphCopy.getAvailableCourses(originalGraph));
         std::vector<Course> selectedCourses(selectFromAvailableCourses(availableCourses, numCredits));
 
         if(selectedCourses.empty()){
-            cout<<"No more available classes"<<endl;
+            cout<<"No more available classes."<<endl;
         }
         // remove selected courses from graph
-        for(auto & selectedCourses : selectedCourses ){
+        for(auto & selectedCourses : selectedCourses){
             graphCopy.removeCourse(selectedCourses.id);
         }
 
@@ -235,6 +207,8 @@ void runProgram(Graph& originalGraph){
 
     optimizedCourseSchedule = optimizedSchedule.topSort(numSemesters, numCredits);
 
+    std::cout << "\nHere is an optimized semester plan: \n";
+    printSemesterPlan(optimizedCourseSchedule);
 }
 
 
@@ -244,9 +218,9 @@ int main()
     Graph myGraph;
 
     // Read the Data and create a graph with it
-    readCSV("TestCourses.csv", myGraph);
+    readCSV("CourseData.csv", myGraph);
 
-    // runs the program 
+    // runs the program
     runProgram(myGraph);
 
     return 0;
