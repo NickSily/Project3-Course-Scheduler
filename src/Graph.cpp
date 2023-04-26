@@ -34,7 +34,7 @@ void Graph::removeCourse(std::string id)
 std::vector<std::vector<Course>>  Graph::topSort(int semester, int credits) {
 
     std::unordered_map<std::string, Course> tempAdjList = this->adjList;
-    int currentSemester =1;
+    int currentSemester = 1;
     vector<Course> temp;
     vector<Course> optimizedSemester;
     vector<std::vector<Course>> results;
