@@ -32,8 +32,8 @@ void readCSV(string filename, Graph& graph){
         if(preReqList.empty()){
             preReqList = "None";
         }
-        // Remove the "" characters if needed
-         else if(preReqList.at(0) == '\"'){
+            // Remove the "" characters if needed
+        else if(preReqList.at(0) == '\"'){
             preReqList = preReqList.substr(1, preReqList.size() - 2);
             // Convert to Stream
             std::stringstream preReqs_sstream(preReqList);
@@ -79,37 +79,40 @@ void printSemesterPlan(std::vector<std::vector<Course>>& finalSemesterPlan){
 
 std::vector<Course> selectFromAvailableCourses(std::vector<Course>& availableCourses, int credits){
     std::vector<Course> selectedCourses;
-    int currentCredit = 0;
+    int currentCredit = 0; int selectionNum;
 
     //print available courses
     int count = 1;
     for(auto & availableCourse : availableCourses){
         cout << count << ". " << availableCourse.id << ", " << availableCourse.name << "| Credits: "<< availableCourse.credits <<endl;
+        count++;
     }
     cout<< "___________________________________________"<<endl;
-
-    int totalCredits=0;
 
     // While 
     // temp course to add to selected vector
     Course temp;
     bool limitReached = false, classFound;
-while(!limitReached){
+    while(!limitReached){
         classFound = false;
         //selection = selected class
         string selection;
         getline(cin >> ws,selection);
-        for(auto & course : availableCourses){
+        selectionNum = stoi(selection);
+
+        for(int x =0; x<availableCourses.size(); x++){
             //insert selected course into return vector
-            if(course.id == selection && (course.credits + currentCredit) <= credits){
-                selectedCourses.push_back(course);
-                currentCredit += course.credits;
+            if(selectionNum == x && (availableCourses[selectionNum-1].credits + currentCredit) <= credits){
+                selectedCourses.push_back(availableCourses[selectionNum-1]);
+                currentCredit += availableCourses[selectionNum-1].credits;
                 classFound = true;
+                cout << availableCourses[selectionNum-1].id <<" has been added your total credit count is "<< currentCredit <<" credits."<<endl;
+
                 break;
             }
-            // credit limit reached
-            else if(course.id == selection){
-                cout << "Cannot add "<< course.id <<", will exceed "<< credits <<" credits."<<endl;
+                // credit limit reached
+            else if(selectionNum == x){
+                cout << "Cannot add "<< availableCourses[selectionNum-1].id <<", will exceed "<< credits <<" credits."<<endl;
                 cout<<endl;
                 limitReached = true;
                 classFound = true;
@@ -122,7 +125,7 @@ while(!limitReached){
             cout << endl;
             limitReached = true;
         }
-        //invalid class selection
+            //invalid class selection
         else if(!classFound){
             cout << "Invalid Course, please try again."<<endl;
             classFound = false;
@@ -148,9 +151,9 @@ void runProgram(Graph& originalGraph){
     // ask user to input Total number of credits
     int numSemesters,numCredits ,currentSemester = 1;
     string course;
-    cout << "How many semesters do you wish to take: " << endl;
+    cout << "How many semesters do you wish to take: ";
     cin >> numSemesters;
-    cout << "How many credits each semester do you wish to take: " << endl;
+    cout << "How many credits each semester do you wish to take: ";
     cin >>  numCredits;
 
     while(currentSemester <= numSemesters){
