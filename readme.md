@@ -1,8 +1,10 @@
-# CSE Gator Planer
+# Functionality CSE Gator Planer
 
 </sub> This program works with students to help them create the most optimal schedule
 
-<sub> * for CSE major only *
+<sub> * for CSE major only * </sub> 
+
+<sub> This repo runs the same program but with no SFML graphics and requires the user to input their options via 1> n courses displayed. We did this to ensure the program could function before making things more complicated. To refer to the repo with graphics please view it [here](https://github.com/BrianBFarias/Schedule-Chomper.git)
 
 ## Students are able to choose 
 
