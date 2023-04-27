@@ -1,4 +1,4 @@
-# CSE Gator Planer
+# Functionality CSE Gator Planer
 
 </sub> This program works with students to help them create the most optimal schedule
 
